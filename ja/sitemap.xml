@@ -3,203 +3,123 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://LcenArthas.github.io/ja/authors/secondauthor/</loc>
+    <loc>http://localhost:1313/ja/authors/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/secondauthor/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/authors/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/secondauthor/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/secondauthor/"
+      href="http://localhost:1313/it/authors/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/secondauthor/"
+      href="http://localhost:1313/ja/authors/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/ja/</loc>
+    <loc>http://localhost:1313/ja/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/"
+      href="http://localhost:1313/it/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/"
+      href="http://localhost:1313/ja/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/ja/categories/</loc>
+    <loc>http://localhost:1313/ja/categories/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/categories/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/categories/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/categories/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/categories/"
+      href="http://localhost:1313/it/categories/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/categories/"
+      href="http://localhost:1313/ja/categories/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/ja/authors/nunocoracao/</loc>
+    <loc>http://localhost:1313/ja/series/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/nunocoracao/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/series/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/nunocoracao/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/nunocoracao/"
+      href="http://localhost:1313/it/series/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/nunocoracao/"
+      href="http://localhost:1313/ja/series/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/ja/series/</loc>
+    <loc>http://localhost:1313/ja/tags/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/series/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/tags/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/series/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/series/"
+      href="http://localhost:1313/it/tags/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/series/"
+      href="http://localhost:1313/ja/tags/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/ja/tags/</loc>
+    <loc>http://localhost:1313/ja/tags/advanced/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/tags/"
+      hreflang="zh-cn"
+      href="http://localhost:1313/tags/advanced/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/tags/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/tags/"
+      href="http://localhost:1313/it/tags/advanced/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="ja"
-      href="https://LcenArthas.github.io/ja/tags/"
-    />
-  </url>
-  <url>
-    <loc>https://LcenArthas.github.io/ja/authors/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/"
-    />
-  </url>
-  <url>
-    <loc>https://LcenArthas.github.io/ja/tags/advanced/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/tags/advanced/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="it"
-      href="https://LcenArthas.github.io/it/tags/advanced/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/tags/advanced/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/tags/advanced/"
+      href="http://localhost:1313/ja/tags/advanced/"
     />
   </url>
 </urlset>

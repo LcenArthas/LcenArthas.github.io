@@ -3,203 +3,93 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://LcenArthas.github.io/it/tags/advanced/</loc>
+    <loc>http://localhost:1313/it/tags/advanced/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/tags/advanced/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/tags/advanced/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/tags/advanced/"
+      href="http://localhost:1313/tags/advanced/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/tags/advanced/"
+      href="http://localhost:1313/it/tags/advanced/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/it/</loc>
+    <loc>http://localhost:1313/it/authors/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/"
+      href="http://localhost:1313/authors/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/"
+      href="http://localhost:1313/it/authors/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/it/categories/</loc>
+    <loc>http://localhost:1313/it/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/categories/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/categories/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/categories/"
+      href="http://localhost:1313/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/categories/"
+      href="http://localhost:1313/it/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/it/authors/</loc>
+    <loc>http://localhost:1313/it/categories/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/"
+      href="http://localhost:1313/categories/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/"
+      href="http://localhost:1313/it/categories/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/it/authors/nunocoracao/</loc>
+    <loc>http://localhost:1313/it/series/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/nunocoracao/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/nunocoracao/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/nunocoracao/"
+      href="http://localhost:1313/series/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/nunocoracao/"
+      href="http://localhost:1313/it/series/"
     />
   </url>
   <url>
-    <loc>https://LcenArthas.github.io/it/authors/secondauthor/</loc>
+    <loc>http://localhost:1313/it/tags/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/authors/secondauthor/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/authors/secondauthor/"
-    />
-    <xhtml:link
-      rel="alternate"
       hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/authors/secondauthor/"
+      href="http://localhost:1313/tags/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="it"
-      href="https://LcenArthas.github.io/it/authors/secondauthor/"
-    />
-  </url>
-  <url>
-    <loc>https://LcenArthas.github.io/it/series/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/series/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/series/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/series/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="it"
-      href="https://LcenArthas.github.io/it/series/"
-    />
-  </url>
-  <url>
-    <loc>https://LcenArthas.github.io/it/tags/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="en"
-      href="https://LcenArthas.github.io/tags/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="ja"
-      href="https://LcenArthas.github.io/ja/tags/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://LcenArthas.github.io/zh-cn/tags/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="it"
-      href="https://LcenArthas.github.io/it/tags/"
+      href="http://localhost:1313/it/tags/"
     />
   </url>
 </urlset>
