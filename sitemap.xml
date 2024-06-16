@@ -3,50 +3,69 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://lcenarthas.github.io/tags/github/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/github-action/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/blog/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/blog/github_action/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/about/</loc>
     <lastmod>2024-06-02T17:56:42+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2024-06-02T17:56:42+08:00</lastmod>
+    <loc>https://lcenarthas.github.io/authors/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2024-06-02T17:56:42+08:00</lastmod>
+    <loc>https://lcenarthas.github.io/categories/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/authors/</loc>
+    <loc>https://lcenarthas.github.io/series/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://lcenarthas.github.io/movienote/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/series/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/tags/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/movienote/</loc>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/booknote/</loc>
+    <loc>https://lcenarthas.github.io/booknote/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>

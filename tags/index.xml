@@ -2,11 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 纯白之境</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://lcenarthas.github.io/tags/</link>
     <description>Recent content in Tags on 纯白之境</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2024 White</copyright>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jun 2024 16:04:46 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github</title>
+      <link>https://lcenarthas.github.io/tags/github/</link>
+      <pubDate>Sat, 15 Jun 2024 16:04:46 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/github/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Github Action</title>
+      <link>https://lcenarthas.github.io/tags/github-action/</link>
+      <pubDate>Sat, 15 Jun 2024 16:04:46 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/github-action/</guid>
+      <description></description>
+      
+    </item>
+    
   </channel>
 </rss>
