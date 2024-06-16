@@ -9,13 +9,13 @@
     <copyright>© 2024 White</copyright>
     <lastBuildDate>Sat, 15 Jun 2024 16:04:46 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>就你叫 Github Action 啊？</title>
+      <title>Github Action &#43; 基于 Github Page Blog 自动发布</title>
       <link>https://lcenarthas.github.io/blog/github_action/</link>
       <pubDate>Sat, 15 Jun 2024 16:04:46 +0800</pubDate>
       
       <guid>https://lcenarthas.github.io/blog/github_action/</guid>
       <description></description>
-      
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://lcenarthas.github.io/blog/github_action/feature.png" />
     </item>
     
   </channel>
