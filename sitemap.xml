@@ -3,6 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>https://lcenarthas.github.io/</loc>
+    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://lcenarthas.github.io/tags/github/</loc>
     <lastmod>2024-06-15T16:04:46+08:00</lastmod>
     <changefreq>always</changefreq>
@@ -28,12 +34,6 @@
   </url>
   <url>
     <loc>https://lcenarthas.github.io/blog/</loc>
-    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://lcenarthas.github.io/</loc>
     <lastmod>2024-06-15T16:04:46+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
