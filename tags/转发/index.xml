@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>转发 on 藏器于身</title>
+    <link>https://lcenarthas.github.io/tags/%E8%BD%AC%E5%8F%91/</link>
+    <description>Recent content in 转发 on 藏器于身</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 White</copyright>
+    <lastBuildDate>Sun, 23 Jun 2024 16:29:44 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/tags/%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一些有趣的文章（技术篇）</title>
+      <link>https://lcenarthas.github.io/blog/liked_article/</link>
+      <pubDate>Sun, 23 Jun 2024 16:29:44 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/blog/liked_article/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://lcenarthas.github.io/blog/liked_article/feature.jpg" />
+    </item>
+    
+  </channel>
+</rss>

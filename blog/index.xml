@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2024 White</copyright>
-    <lastBuildDate>Sat, 15 Jun 2024 16:04:46 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jun 2024 17:45:35 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于远程工作的那些事</title>
+      <link>https://lcenarthas.github.io/blog/remote_work/</link>
+      <pubDate>Sun, 23 Jun 2024 17:45:35 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/blog/remote_work/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>一些有趣的文章（技术篇）</title>
+      <link>https://lcenarthas.github.io/blog/liked_article/</link>
+      <pubDate>Sun, 23 Jun 2024 16:29:44 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/blog/liked_article/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://lcenarthas.github.io/blog/liked_article/feature.jpg" />
+    </item>
+    
     <item>
       <title>Github Action &#43; 基于 Github Page Blog 自动发布</title>
       <link>https://lcenarthas.github.io/blog/github_action/</link>

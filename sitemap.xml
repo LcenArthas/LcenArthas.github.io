@@ -4,7 +4,55 @@
 
   <url>
     <loc>https://lcenarthas.github.io/</loc>
-    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/remote-work/</loc>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/</loc>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/blog/remote_work/</loc>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/blog/</loc>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</loc>
+    <lastmod>2024-06-23T17:45:35+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/%E9%93%BE%E6%8E%A5/</loc>
+    <lastmod>2024-06-23T16:29:44+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/blog/liked_article/</loc>
+    <lastmod>2024-06-23T16:29:44+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/tags/%E8%BD%AC%E5%8F%91/</loc>
+    <lastmod>2024-06-23T16:29:44+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
@@ -27,13 +75,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/tags/</loc>
-    <lastmod>2024-06-15T16:04:46+08:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://lcenarthas.github.io/blog/</loc>
+    <loc>https://lcenarthas.github.io/tags/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2024-06-15T16:04:46+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
