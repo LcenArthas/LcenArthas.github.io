@@ -6,8 +6,18 @@
     <description>Recent content on 藏器于身</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>© 2024 White</copyright>
-    <lastBuildDate>Sun, 23 Jun 2024 17:45:35 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2024 White Liu</copyright>
+    <lastBuildDate>Tue, 25 Jun 2024 23:59:56 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于 Contribution 的那些事</title>
+      <link>https://lcenarthas.github.io/blog/open_source/</link>
+      <pubDate>Tue, 25 Jun 2024 23:59:56 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/blog/open_source/</guid>
+      <description></description>
+      
+    </item>
+    
     <item>
       <title>关于远程工作的那些事</title>
       <link>https://lcenarthas.github.io/blog/remote_work/</link>
