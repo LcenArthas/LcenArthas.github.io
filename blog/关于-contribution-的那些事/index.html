@@ -110,7 +110,7 @@
     "keywords": ["技术","开源","Github"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1634"
+    "wordCount": "4023"
   }]
   </script>
 
@@ -584,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-06-25 23:59:56 &#43;0800 &#43;0800">2024-06-25</time><span class="px-2 text-primary-500">&middot;</span><span>1634 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-06-25 23:59:56 &#43;0800 &#43;0800">2024-06-25</time><span class="px-2 text-primary-500">&middot;</span><span>4023 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -861,9 +861,24 @@
         <li><a href="#1-fork复制远程代码仓库">1. Fork（复制）远程代码仓库</a></li>
         <li><a href="#2-clone克隆代码仓库到本地">2. Clone（克隆）代码仓库到本地</a></li>
         <li><a href="#3-关于同步理论内容但是很重要">3. 💥💥【关于同步】（理论内容，但是很重要！）💥💥</a></li>
-        <li><a href="#4-在本地的仓库配置上游为远端仓库选做但是最好做">4. 在本地的仓库配置”上游”为远端仓库（选做但是最好做）</a></li>
+        <li><a href="#4-在本地的仓库配置上游为远端仓库">4. 在本地的仓库配置”上游”为远端仓库</a></li>
+        <li><a href="#5-同步本地的仓库与上游仓库第一次同步">5. 同步本地的仓库与上游仓库（第一次同步）</a></li>
+        <li><a href="#5-新建分支">5. 新建分支</a></li>
+        <li><a href="#6-对代码进行修改然后-commit-提交-修改">6. 对代码进行修改，然后 Commit (提交) 修改</a></li>
+        <li><a href="#7-pr-之前再次同步本地的分支与上游仓库第二次同步">7. pr 之前，再次同步本地的分支与上游仓库（第二次同步）</a></li>
+        <li><a href="#8-再次-commit-提交--push推送">8. 再次 Commit (提交) &amp;&amp; Push（推送）</a></li>
+        <li><a href="#9-提出-pull-request-将你的修改供他人审阅">9. 提出 Pull Request 将你的修改供他人审阅</a></li>
       </ul>
     </li>
+    <li><a href="#当你提交了之后会发生什么">当你提交了之后会发生什么</a>
+      <ul>
+        <li><a href="#-没有人响应你">😭 没有人响应你。</a></li>
+        <li><a href="#-有人要求你对自己的提交做出变更">🚧 有人要求你对自己的提交做出变更。</a></li>
+        <li><a href="#-你的贡献没有被接受">👎 你的贡献没有被接受。</a></li>
+        <li><a href="#-你的贡献被采纳">🎉 你的贡献被采纳。</a></li>
+      </ul>
+    </li>
+    <li><a href="#pr-九步">PR 九步：</a></li>
     <li><a href="#参考资料">参考资料</a></li>
   </ul>
 </nav>
@@ -885,9 +900,24 @@
         <li><a href="#1-fork复制远程代码仓库">1. Fork（复制）远程代码仓库</a></li>
         <li><a href="#2-clone克隆代码仓库到本地">2. Clone（克隆）代码仓库到本地</a></li>
         <li><a href="#3-关于同步理论内容但是很重要">3. 💥💥【关于同步】（理论内容，但是很重要！）💥💥</a></li>
-        <li><a href="#4-在本地的仓库配置上游为远端仓库选做但是最好做">4. 在本地的仓库配置”上游”为远端仓库（选做但是最好做）</a></li>
+        <li><a href="#4-在本地的仓库配置上游为远端仓库">4. 在本地的仓库配置”上游”为远端仓库</a></li>
+        <li><a href="#5-同步本地的仓库与上游仓库第一次同步">5. 同步本地的仓库与上游仓库（第一次同步）</a></li>
+        <li><a href="#5-新建分支">5. 新建分支</a></li>
+        <li><a href="#6-对代码进行修改然后-commit-提交-修改">6. 对代码进行修改，然后 Commit (提交) 修改</a></li>
+        <li><a href="#7-pr-之前再次同步本地的分支与上游仓库第二次同步">7. pr 之前，再次同步本地的分支与上游仓库（第二次同步）</a></li>
+        <li><a href="#8-再次-commit-提交--push推送">8. 再次 Commit (提交) &amp;&amp; Push（推送）</a></li>
+        <li><a href="#9-提出-pull-request-将你的修改供他人审阅">9. 提出 Pull Request 将你的修改供他人审阅</a></li>
       </ul>
     </li>
+    <li><a href="#当你提交了之后会发生什么">当你提交了之后会发生什么</a>
+      <ul>
+        <li><a href="#-没有人响应你">😭 没有人响应你。</a></li>
+        <li><a href="#-有人要求你对自己的提交做出变更">🚧 有人要求你对自己的提交做出变更。</a></li>
+        <li><a href="#-你的贡献没有被接受">👎 你的贡献没有被接受。</a></li>
+        <li><a href="#-你的贡献被采纳">🎉 你的贡献被采纳。</a></li>
+      </ul>
+    </li>
+    <li><a href="#pr-九步">PR 九步：</a></li>
     <li><a href="#参考资料">参考资料</a></li>
   </ul>
 </nav>
@@ -974,6 +1004,18 @@
 
 </p>
 
+<div class="flex mt-2">
+<span
+  class="rounded-full bg-primary-500 dark:bg-primary-400 text-neutral-50 dark:text-neutral-800 px-1.5 py-[1px] text-xs font-normal"
+>
+  <span class="flex flex-row items-center">
+    
+    <span>如果直接想看操作，请看<a href="#pr-%e4%b9%9d%e6%ad%a5"  >
+    pr-九步</a></span>
+  </span>
+</span>
+</div>
+
 
 <h2 class="relative group">引言 
     <div id="%E5%BC%95%E8%A8%80" class="anchor"></div>
@@ -992,9 +1034,88 @@
     &ldquo;Why I love contributing to open source software&rdquo;</a></p>
 </blockquote>
 <p>首先尝试开源之前，强烈推荐阅读 <a href="https://opensource.guide/"   target="_blank">
-    Open Source Guides</a> (多种语言都有)，下文很多做法也是借鉴于这个手册。</p>
-<p>另外非常推荐尝试 <a href="https://github.com/firstcontributions/first-contributions"   target="_blank">
+    Open Source Guides</a> (附有多种语言)，下文很多做法也是借鉴于这个手册。</p>
+<p>另外非常推荐尝试下面这个 <a href="https://github.com/firstcontributions/first-contributions"   target="_blank">
     first-contributions</a> 这个项目进行提交，下文也会以这个项目为例，进行一次 contribution 的提交。</p>
+<a id="github-e7758abc3ba3132a003d0e18ab5c5cbd" target="_blank" href="https://github.com/firstcontributions/first-contributions" class="cursor-pointer">
+  <div
+    class="w-full md:w-auto pt-3 p-5 border border-neutral-200 dark:border-neutral-700 border rounded-md shadow-2xl">
+
+    <div class="flex items-center">
+      <span class="text-2xl text-neutral-800 dark:text-neutral" style="margin-right:10px;">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+      </span>
+      <div
+        id="github-e7758abc3ba3132a003d0e18ab5c5cbd-full_name"
+        class="m-0 font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral">
+        firstcontributions/first-contributions
+      </div>
+    </div>
+
+    <p id="github-e7758abc3ba3132a003d0e18ab5c5cbd-description" class="m-0 mt-2 text-md text-neutral-800 dark:text-neutral">
+      🚀✨ Help beginners to contribute to open source projects
+    </p>
+
+    <div class="m-0 mt-2 flex items-center">
+
+      <span class="mr-1 inline-block h-3 w-3 rounded-full"
+        style="background-color:  #0077b6 "></span>
+      <div class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
+         null 
+      </div>
+
+      <span class="text-md mr-1 text-neutral-800 dark:text-neutral">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg>
+  </span>
+
+
+      </span>
+      <div id="github-e7758abc3ba3132a003d0e18ab5c5cbd-stargazers" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
+        43462
+      </div>
+
+      <span class="text-md mr-1 text-neutral-800 dark:text-neutral">
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M80 104c13.3 0 24-10.7 24-24s-10.7-24-24-24S56 66.7 56 80s10.7 24 24 24zm80-24c0 32.8-19.7 61-48 73.3V192c0 17.7 14.3 32 32 32H304c17.7 0 32-14.3 32-32V153.3C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V192c0 53-43 96-96 96H256v70.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V288H144c-53 0-96-43-96-96V153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm208 24c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24zM248 432c0-13.3-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24s24-10.7 24-24z"/></svg>
+  </span>
+
+
+      </span>
+      <div id="github-e7758abc3ba3132a003d0e18ab5c5cbd-forks" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
+        75198
+      </div>
+
+    </div>
+
+  </div>
+  <script>
+    fetch("https://api.github.com/repos/firstcontributions/first-contributions", {
+      headers: new Headers({
+        'User-agent': 'Mozilla/4.0 Custom User Agent'
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('github-e7758abc3ba3132a003d0e18ab5c5cbd-full_name').innerHTML = data.full_name;
+        document.getElementById('github-e7758abc3ba3132a003d0e18ab5c5cbd-description').innerHTML = data.description;
+        document.getElementById('github-e7758abc3ba3132a003d0e18ab5c5cbd-stargazers').innerHTML = data.stargazers_count;
+        document.getElementById('github-e7758abc3ba3132a003d0e18ab5c5cbd-forks').innerHTML = data.forks;
+      })
+      .catch(error => console.error(error))
+  </script>
+</a>
 <p>那么就让我们开始吧！🚀</p>
 
 
@@ -1012,10 +1133,9 @@
 <p>在某一个开源项目扎根多年，这意味着你只是对这一个开源项目无比的熟悉。若是切换到不同的项目，可能会发现完全是另外一回事，所谓的使用词汇、习惯用语、沟通方式都发生了变化。</p>
 <p>所以先不要着急提交，先<strong>了解</strong>一个项目。</p>
 </blockquote>
-<p>在正式开始之前，如果你有一个好的想法，做一些快速的检查项（issue、pr），以确保没有人讨论过你的想法。</p>
-<p>如果你没有找到和你想法一样的内容，你就可以继续了。</p>
+<p>在准备贡献之前，如果你有一个好的想法，做一些快速的检查项（issue、pr），以确保没有人讨论过你的想法。</p>
 <ol>
-<li>在正式开启之前，如果没有人提这个 issue 先创建一个 issue：</li>
+<li>如果没有人提这个 issue，先创建一个 issue：</li>
 </ol>
 <ul>
 <li>报告你自己无法解决的错误</li>
@@ -1042,7 +1162,7 @@
     </span>        
     
 </h2>
-<p>下面都会以<a href="https://github.com/firstcontributions/first-contributions"   target="_blank">
+<p>下面会以<a href="https://github.com/firstcontributions/first-contributions"   target="_blank">
     first-contributions</a> 这个项目为例，进行提交。</p>
 
 
@@ -1098,8 +1218,12 @@
     </span>        
     
 </h3>
-<p>使用 git clone 命令将代码仓库克隆到本地</p>
-
+<p>使用 <code>git clone</code> 命令将 fork 的代码仓库克隆到本地，</p>
+<p>进入到本地仓库的目录。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone <span class="s2">&#34;your fork repo&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="s2">&#34;your fork repo&#34;</span>
+</span></span></code></pre></div>
 
 <h3 class="relative group">3. 💥💥【关于同步】（理论内容，但是很重要！）💥💥 
     <div id="3-%E5%85%B3%E4%BA%8E%E5%90%8C%E6%AD%A5%E7%90%86%E8%AE%BA%E5%86%85%E5%AE%B9%E4%BD%86%E6%98%AF%E5%BE%88%E9%87%8D%E8%A6%81" class="anchor"></div>
@@ -1172,41 +1296,608 @@
   
 
 </p>
-<p>为了使你的两个repo与远端的公共存储库保持同步，我们首先必须获取公共存储库并将其与您本地计算机的存储库合并。我们的第二步是将您的本地存储库推送到您的 GitHub fork。之后，从你的 fork 请求 “pull request”。</p>
+<p>为了使你的两个 repo 与远端的公共存储库保持同步，首先必须获取公共存储库并将其与您本地计算机的存储库合并。我们的第二步是将您的本地存储库推送到您的 GitHub fork。之后，从你的 fork 请求 “pull request”。</p>
 <p>在操作中注意以下几个原则：</p>
 <ul>
 <li>对别人的项目贡献PR，要用自己的 <strong>feature-branch</strong>。</li>
-<li>每次准备 coding <strong>之前</strong>保证自己的本地的 main 分支是<strong>同步</strong>上游仓库的（目的是新建feature-branch之后，可以保证是最新的）。</li>
-<li>自己的 fork 仓库的 main 分支不一定要是最新的，一般都是落后上游并从不更新（因为每次更新和push都是用 feature-branch）。</li>
-<li>每次修改完 feature-branch，要<strong>再次同步</strong>上游仓库，保证之后的 push pr 没有冲突（小概率冲突）。</li>
+<li>每次准备 coding <strong>之前</strong>保证自己的本地的 main-branch 是已经<strong>同步</strong>上游仓库的（目的是使新建的 feature-branch 是最新的）。</li>
+<li>自己的 fork repo 的 main-branch 不一定要是最新的，一般都是落后上游并从不更新（因为每次更新和 push 都是用 feature-branch）。</li>
+<li>每次修改完 feature-branch，要<strong>再次同步</strong>上游仓库，保证之后的 pr 没有冲突（降低冲突概率，也可能会有）。</li>
 </ul>
-<p>所以可以看出为了避免冲突（将冲突处理于本地），整个提交 pr 的过程中涉及两次同步。</p>
+<p>所以可以看出为了避免 conflict（将 conflict 处理于本地），整个提交 pr 的过程中会涉及<strong>两次同步</strong>。</p>
 <ul>
-<li>第一次是准备 coding 之前（新建 featur-branch 之前），保证 main/feature branch 同步。</li>
-<li>第二次是准备 push 之前, 保证 feature-branch 同步 （等一下要提交pr，再次同步 main 分支，而这次不用）。</li>
+<li>第一次是准备 coding 之前（新建 featur-branch 之前），保证 main/feature branch 同步（这次可以采用<code>git reset --hard origin/master</code>，强制同步，下文会讲）。</li>
+<li>第二次是准备 push 之前, 保证 feature-branch 同步（这次采用 <code>git merge</code>, 处理conflict）。</li>
 </ul>
-<p><strong>所以一致在保持同步上游仓库的分支，理论上只有 featur-branch，而 main-branch 只有在下次要提交之前在同步（当然，你也可以在对方接受了 PR 之后，找个时间同步一下 main-branch，什么时候都好。）</strong></p>
-<p>如果想了解同步的更多方式，可以查阅</p>
+<p><strong>所以一直在保持同步上游仓库的分支，理论上只有 featur-branch，而 main-branch 只有在下次要提交新的 pr 之前再同步（当然，你也可以在对方接受了 pr 之后，找个时间同步一下 main-branch，什么时候都好。）</strong></p>
+<p>如果想了解同步的更多方式，可以查阅 ：</p>
 <ul>
 <li><a href="https://github.com/selfteaching/the-craft-of-selfteaching/issues/67"   target="_blank">
-    Github进行fork后如何与原仓库同步：重新fork很省事，但不如反复练习版本合并 #67</a></li>
+    Github进行fork后如何与原仓库同步：重新fork很省事，但不如反复练习版本合并 #67</a><br>
+（更多是借鉴于<a href="https://github.com/selfteaching/the-craft-of-selfteaching/issues/67#issuecomment-473608874"   target="_blank">
+    frostming</a>大佬的做法）</li>
 <li><a href="http://www.qtcn.org/bbs/simple/?t53628.html"   target="_blank">
     如何参与Tianchi(天池)项目以及如何贡献代码</a></li>
 </ul>
 
 
-<h3 class="relative group">4. 在本地的仓库配置”上游”为远端仓库（选做但是最好做） 
-    <div id="4-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8A%E6%B8%B8%E4%B8%BA%E8%BF%9C%E7%AB%AF%E4%BB%93%E5%BA%93%E9%80%89%E5%81%9A%E4%BD%86%E6%98%AF%E6%9C%80%E5%A5%BD%E5%81%9A" class="anchor"></div>
+<h3 class="relative group">4. 在本地的仓库配置”上游”为远端仓库 
+    <div id="4-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8A%E6%B8%B8%E4%B8%BA%E8%BF%9C%E7%AB%AF%E4%BB%93%E5%BA%93" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#4-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8A%E6%B8%B8%E4%B8%BA%E8%BF%9C%E7%AB%AF%E4%BB%93%E5%BA%93%E9%80%89%E5%81%9A%E4%BD%86%E6%98%AF%E6%9C%80%E5%A5%BD%E5%81%9A" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#4-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8A%E6%B8%B8%E4%B8%BA%E8%BF%9C%E7%AB%AF%E4%BB%93%E5%BA%93" aria-label="锚点">#</a>
     </span>        
     
 </h3>
-<p>这样你可以在提交你的 PR 时保持和”上游”同步，会减少很多解决冲突的时间。</p>
+<p>执行命令 <code>git remote</code> 查看你的远程仓库的路径:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote -v
+</span></span></code></pre></div><p>你可以查看当前本地仓库中已经配置的远程仓库地址。通常，你会看到 origin 对应的是你 fork 的仓库。</p>
+<p>
 
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remove_hu6ae508a167c52c1af53f328684924d33_3304_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remove_hu6ae508a167c52c1af53f328684924d33_3304_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remove_hu6ae508a167c52c1af53f328684924d33_3304_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remove_hu6ae508a167c52c1af53f328684924d33_3304_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remove_hu6ae508a167c52c1af53f328684924d33_3304_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p>如果只有上面2行，说明你未设置 upstream （中文叫：上游代码库）。一般情况下，设置好一次 upstream 后就无需重复设置。</p>
+<p>此时你应该是在你的 main-branch，如果不放心可以使用 <code>git branch</code>, 查看当前命令。</p>
+<p>执行命令 <code>git remote add upstream </code> 把远端的仓库设置为你的 upstream 。这个命令执行后，没有任何返回信息；所以再次执行命令 git remote -v 检查是否成功。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git remote add upstream https://github.com/firstcontributions/first-contributions
+</span></span></code></pre></div><p>执行后显示：</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remote_1_huf6e6a1558f477797ff3cc1e4203c734a_4617_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remote_1_huf6e6a1558f477797ff3cc1e4203c734a_4617_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remote_1_huf6e6a1558f477797ff3cc1e4203c734a_4617_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remote_1_huf6e6a1558f477797ff3cc1e4203c734a_4617_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/git_remote_1_huf6e6a1558f477797ff3cc1e4203c734a_4617_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+
+
+<h3 class="relative group">5. 同步本地的仓库与上游仓库（第一次同步） 
+    <div id="5-%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E4%B8%8E%E4%B8%8A%E6%B8%B8%E4%BB%93%E5%BA%93%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E7%9A%84%E4%BB%93%E5%BA%93%E4%B8%8E%E4%B8%8A%E6%B8%B8%E4%BB%93%E5%BA%93%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<blockquote>
+<p>切记，这步一定要在本地的 main-branch 分支执行，如果不确定，就使用 <code>git branch</code> 查看当前分支， 使用 <code>git checkout main</code> 切换到 main-branch。</p>
+</blockquote>
+<ol>
+<li>获取上游仓库的最新更改：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch upstream
+</span></span></code></pre></div><p>该命令从上游仓库（upstream）获取所有分支和最新的提交，但不会自动合并或修改本地分支。</p>
+<ol start="2">
+<li>重置（强制同步）本地 main-branch：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard upstream/main
+</span></span></code></pre></div><blockquote>
+<p>Q：上游的主分支是 <code>upstream/main</code> 还是 <code>upstream/master</code>？</p>
+<p>A：由于历史原因，2020年，为了消除术语中的潜在歧视性含义，Git 项目和许多开源社区决定将默认主分支名称从 master 改为 main。<br>
+所以在使用 <code>git reset --hard</code> 之前可以先使用 <code>git branch -r</code> 查看上游所有分支，查看 upstream 的默认主分支是 main 还是 master。</p>
+</blockquote>
+
+  
+
+
+
+<div
+  
+    class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900"
+  >
+
+  <span
+    
+      class="text-primary-400 ltr:pr-3 rtl:pl-3 flex items-center"
+    >
+
+    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/></svg>
+
+  </span>
+
+
+  </span>
+
+  <span
+    
+      class="dark:text-neutral-300"
+    >在执行 git reset &ndash;hard upstream/main 命令之前，请确保已经将所有重要的更改提交到其他分支或保存到其他地方，因为此命令会丢弃本地 main 分支上的所有未提交的更改。</span>
+</div>
+
+
+
+<h3 class="relative group">5. 新建分支 
+    <div id="5-%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>新建一个新的分支，在新的分支上进行开发，确保 main 分支保持同步且不受干扰。这使得 main 分支可以随时用于同步最新的上游代码。</p>
+<p>新建分支并且切换到新分支：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch add-myname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git checkout add-myname
+</span></span></code></pre></div><p>或者直接使用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout -b add-myname
+</span></span></code></pre></div><p>新建分支名字时，确保清晰、易于理解，区分 issue 和 feature。例如：</p>
+<blockquote>
+<p>feature/add-user-authentication<br>
+fix/issue-1234-bug-fix<br>
+update/readme-improvements<br>
+hotfix/production-bug-fix</p>
+</blockquote>
+
+
+<h3 class="relative group">6. 对代码进行修改，然后 Commit (提交) 修改 
+    <div id="6-%E5%AF%B9%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9%E7%84%B6%E5%90%8E-commit-%E6%8F%90%E4%BA%A4-%E4%BF%AE%E6%94%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E5%AF%B9%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9%E7%84%B6%E5%90%8E-commit-%E6%8F%90%E4%BA%A4-%E4%BF%AE%E6%94%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+  
+
+
+
+<div
+  
+    class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900"
+  >
+
+  <span
+    
+      class="text-primary-400 ltr:pr-3 rtl:pl-3 flex items-center"
+    >
+
+    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/></svg>
+
+  </span>
+
+
+  </span>
+
+  <span
+    
+      class="dark:text-neutral-300"
+    >此时代码修改的操作，都是在你新建的branch上进行。</span>
+</div>
+
+<p>在本文的例子中，</p>
+<p>打开 <code>Contributors.md</code> 这个文件，更新文件内容，将你的名字加上去，保存修改。<code>git status</code> 这命令会列出被改动的文件。接着 <code>git add</code> 这命令则可以添加你的改动。</p>
+<p>现在就可以使用 <code>git commit</code> 命令 commit 你的修改了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Add &lt;你的名字&gt; to Contributors list&#34;</span>
+</span></span></code></pre></div><p>将 <code>&lt;你的名字&gt;</code> 替换成你的名字</p>
+<p>之后就可以使用 <code>git push</code> 命令, 将新分支推送到 fork 仓库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push origin add-myname
+</span></span></code></pre></div><p>现在你的 fork repo 应该就会有你已经提交的新分支和内容。</p>
+<p>你可以重复此步，来不断修改代码、推动代码到自己的 fork 仓库，根据不同情况，这个过程可能会持续很久，或者一次就好。</p>
+<p>如果你已经完成了修改，准备好进行 pr 了，那么往下看。</p>
+<p>（加油！就快完事了😀）</p>
+
+
+<h3 class="relative group">7. pr 之前，再次同步本地的分支与上游仓库（第二次同步） 
+    <div id="7-pr-%E4%B9%8B%E5%89%8D%E5%86%8D%E6%AC%A1%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E7%9A%84%E5%88%86%E6%94%AF%E4%B8%8E%E4%B8%8A%E6%B8%B8%E4%BB%93%E5%BA%93%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%90%8C%E6%AD%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#7-pr-%E4%B9%8B%E5%89%8D%E5%86%8D%E6%AC%A1%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E7%9A%84%E5%88%86%E6%94%AF%E4%B8%8E%E4%B8%8A%E6%B8%B8%E4%BB%93%E5%BA%93%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%90%8C%E6%AD%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>因为你在修改代码的过程中，可能远程仓库已经有所更改。</p>
+<p>这步就是为了避免 pr 之后再解决 conflict 的问题，而是在提交之前，讲 conflict 解决在本地。</p>
+
+  
+
+
+
+<div
+  
+    class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900"
+  >
+
+  <span
+    
+      class="text-primary-400 ltr:pr-3 rtl:pl-3 flex items-center"
+    >
+
+    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/></svg>
+
+  </span>
+
+
+  </span>
+
+  <span
+    
+      class="dark:text-neutral-300"
+    >此时代码修改的操作，仍然在你新建的 branch 上进行。</span>
+</div>
+
+<ol>
+<li>在 feature 分支上直接从上游仓库获取最新的更新：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch upstream
+</span></span></code></pre></div><ol start="2">
+<li>将上游仓库的最新更改合并到 feature 分支：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git merge upstream/main
+</span></span></code></pre></div><ol start="3">
+<li>解决冲突（如果有）：</li>
+</ol>
+<p>如果在合并过程中遇到冲突，手动解决冲突。</p>
+<ol start="4">
+<li>继续 merge：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git merge --continue
+</span></span></code></pre></div><p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/merge_huede90dfa78487275dce951c04698e72a_4799_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/merge_huede90dfa78487275dce951c04698e72a_4799_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/merge_huede90dfa78487275dce951c04698e72a_4799_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/merge_huede90dfa78487275dce951c04698e72a_4799_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/merge_huede90dfa78487275dce951c04698e72a_4799_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+
+
+<h3 class="relative group">8. 再次 Commit (提交) &amp;&amp; Push（推送） 
+    <div id="8-%E5%86%8D%E6%AC%A1-commit-%E6%8F%90%E4%BA%A4--push%E6%8E%A8%E9%80%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#8-%E5%86%8D%E6%AC%A1-commit-%E6%8F%90%E4%BA%A4--push%E6%8E%A8%E9%80%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>类似<a href="#6-%e5%af%b9%e4%bb%a3%e7%a0%81%e8%bf%9b%e8%a1%8c%e4%bf%ae%e6%94%b9%e7%84%b6%e5%90%8e-commit-%e6%8f%90%e4%ba%a4-%e4%bf%ae%e6%94%b9"  >
+    第6步</a>, 将分支代码 push 到 fork repo。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;new feature&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push origin add-myname
+</span></span></code></pre></div>
+
+<h3 class="relative group">9. 提出 Pull Request 将你的修改供他人审阅 
+    <div id="9-%E6%8F%90%E5%87%BA-pull-request-%E5%B0%86%E4%BD%A0%E7%9A%84%E4%BF%AE%E6%94%B9%E4%BE%9B%E4%BB%96%E4%BA%BA%E5%AE%A1%E9%98%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#9-%E6%8F%90%E5%87%BA-pull-request-%E5%B0%86%E4%BD%A0%E7%9A%84%E4%BF%AE%E6%94%B9%E4%BE%9B%E4%BB%96%E4%BA%BA%E5%AE%A1%E9%98%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>前往你的 Github 代码仓库，你会看到一个 <code>Contribute</code> 的按钮。点击该按钮，之后点击 <code>OPen pull request</code>。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_hua2e59494e49265d5fbb1765695fc1cac_90145_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_hua2e59494e49265d5fbb1765695fc1cac_90145_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_hua2e59494e49265d5fbb1765695fc1cac_90145_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_hua2e59494e49265d5fbb1765695fc1cac_90145_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_hua2e59494e49265d5fbb1765695fc1cac_90145_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p>接着可以填写 Pull Request 表单，描述你的 pr，接着再点击 <code>Create pull request</code> 按钮，正式提交 pull request。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/creat_pr_hu1add0b81ebf0ecb8fb8037737baa5248_86161_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/creat_pr_hu1add0b81ebf0ecb8fb8037737baa5248_86161_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/creat_pr_hu1add0b81ebf0ecb8fb8037737baa5248_86161_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/creat_pr_hu1add0b81ebf0ecb8fb8037737baa5248_86161_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/creat_pr_hu1add0b81ebf0ecb8fb8037737baa5248_86161_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p>之后便可以在远程仓库中看到你的 PR。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_2_hu20a616bad4221a65259e972d1d1fb4b9_73572_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_2_hu20a616bad4221a65259e972d1d1fb4b9_73572_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_2_hu20a616bad4221a65259e972d1d1fb4b9_73572_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_2_hu20a616bad4221a65259e972d1d1fb4b9_73572_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/pr_2_hu20a616bad4221a65259e972d1d1fb4b9_73572_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p>而且能在里面看到你之前的 commit。</p>
+
+
+<h2 class="relative group">当你提交了之后会发生什么 
+    <div id="%E5%BD%93%E4%BD%A0%E6%8F%90%E4%BA%A4%E4%BA%86%E4%B9%8B%E5%90%8E%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BD%93%E4%BD%A0%E6%8F%90%E4%BA%A4%E4%BA%86%E4%B9%8B%E5%90%8E%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在你提交了贡献之后，下面几种情形是可能发生的：</p>
+
+
+<h3 class="relative group">😭 没有人响应你。 
+    <div id="-%E6%B2%A1%E6%9C%89%E4%BA%BA%E5%93%8D%E5%BA%94%E4%BD%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%B2%A1%E6%9C%89%E4%BA%BA%E5%93%8D%E5%BA%94%E4%BD%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>即使在一个活跃的项目中，你的贡献也有可能得不到响应。</p>
+<p>如果过去了一周，依旧没有人响应，请心平气和的在后面跟帖，询求他人帮助你审核。如果你熟悉某个人可以审核你的贡献，你可以使用@+名字，直接提醒他一下。</p>
+<p>如果你做了所有该做的事情，还是没有人理你，那就是真的没有人对你的贡献做出响应。这可能令人难受，但是千万不要灰心，每个人都会遇到这样的情况。你没有得到回复的原因有很多，包括你无法控制的个人情况。再接再厉，试着寻找另一个项目或方式来做出贡献。</p>
+
+
+<h3 class="relative group">🚧 有人要求你对自己的提交做出变更。 
+    <div id="-%E6%9C%89%E4%BA%BA%E8%A6%81%E6%B1%82%E4%BD%A0%E5%AF%B9%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8F%90%E4%BA%A4%E5%81%9A%E5%87%BA%E5%8F%98%E6%9B%B4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E6%9C%89%E4%BA%BA%E8%A6%81%E6%B1%82%E4%BD%A0%E5%AF%B9%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8F%90%E4%BA%A4%E5%81%9A%E5%87%BA%E5%8F%98%E6%9B%B4" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>被要求修改你的提交是很常见的，无论是对你的想法的反馈，还是对你代码的改动。</p>
+<p>当有人提出变更时，请及时响应。他们花时间审核了你的提交，要尊重他们。开启 PR 然后一走了之是一种恶习。如果你不知道如何修改，请花时间深入研究，并在需要时寻求他人帮助。</p>
+<p>如果你没有时间继续处理这个 issue（举例来说，如果对话持续了几个月，而你情况有变），那么请告知维护者你无法再及时响应了。或许有其他人乐意接手你的工作</p>
+
+
+<h3 class="relative group">👎 你的贡献没有被接受。 
+    <div id="-%E4%BD%A0%E7%9A%84%E8%B4%A1%E7%8C%AE%E6%B2%A1%E6%9C%89%E8%A2%AB%E6%8E%A5%E5%8F%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E8%B4%A1%E7%8C%AE%E6%B2%A1%E6%9C%89%E8%A2%AB%E6%8E%A5%E5%8F%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>你的贡献最终可能被接受，也可能不被接受。真心希望你没有为此花费太多力气。如果你不确定为什么它不被接受，请维护者提供反馈和说明是完全合理的。但最终，无论如何，你都要对他们的决定表示尊重。不要去无谓的争论或者显露敌意。如果你坚持自己，你仍可以 fork 项目，按照自己的思路来发展分支。</p>
+
+
+<h3 class="relative group">🎉 你的贡献被采纳。 
+    <div id="-%E4%BD%A0%E7%9A%84%E8%B4%A1%E7%8C%AE%E8%A2%AB%E9%87%87%E7%BA%B3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#-%E4%BD%A0%E7%9A%84%E8%B4%A1%E7%8C%AE%E8%A2%AB%E9%87%87%E7%BA%B3" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>太棒了！你已经成功地完成了一次开源贡献！</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/succeed_hu579e699acb1fec7ca230015e613b2354_408629_330x0_resize_box_3.png 330w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/succeed_hu579e699acb1fec7ca230015e613b2354_408629_660x0_resize_box_3.png 660w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/succeed_hu579e699acb1fec7ca230015e613b2354_408629_1024x0_resize_box_3.png 1024w,
+        /blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/succeed_hu579e699acb1fec7ca230015e613b2354_408629_1320x0_resize_box_3.png 2x"
+        src="/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/succeed_hu579e699acb1fec7ca230015e613b2354_408629_660x0_resize_box_3.png"
+        alt="technology article"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+
+
+<h2 class="relative group">PR 九步： 
+    <div id="pr-%E4%B9%9D%E6%AD%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#pr-%E4%B9%9D%E6%AD%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Step 1: Fork（复制）远程代码仓库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 2: Clone（克隆）代码仓库到本地</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/your-name/fork-repo.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> fork-repo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 3: 查看远程仓库路径确认添加成功</span>
+</span></span><span class="line"><span class="cl">git remote -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 4: 添加上游仓库作为 upstream</span>
+</span></span><span class="line"><span class="cl">git remote add upstream https://github.com/upstream-owner/original-repo.git
+</span></span><span class="line"><span class="cl">git remote -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 5: 同步本地主分支与上游主分支</span>
+</span></span><span class="line"><span class="cl">git fetch upstream
+</span></span><span class="line"><span class="cl">git reset --hard upstream/main  <span class="c1"># 或者 upstream/master</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 6: 新建一个特性分支进行开发</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature-branch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在 feature-branch 上做一些更改和提交</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 7: 再次同步本地分支与上游仓库的主分支</span>
+</span></span><span class="line"><span class="cl">git checkout feature-branch
+</span></span><span class="line"><span class="cl">git fetch upstream
+</span></span><span class="line"><span class="cl">git merge upstream/main  <span class="c1"># 或者 upstream/master</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 8: 将特性分支推送到你的 Fork 仓库</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;new feature&#34;</span>
+</span></span><span class="line"><span class="cl">git push origin feature-branch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Step 9: 在 GitHub 上创建 Pull Request</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - 导航到你的 Fork 仓库页面，选择 feature-branch 分支</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - 点击 &#34;Pull Request&#34; 按钮，创建 PR 到 upstream 的主分支</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - 填写 PR 标题、描述，提交 PR</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 请确保在每个步骤执行前理解并确认操作的正确性，特别是在涉及重置和合并的步骤中。</span>
+</span></span></code></pre></div>
 
 <h2 class="relative group">参考资料 
     <div id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor"></div>
