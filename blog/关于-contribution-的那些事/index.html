@@ -945,8 +945,8 @@
         if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
 
         active.each(function (i, e) {
-          
-            $(e).removeClass('active');
+           
+            $(e).removeClass('active').siblings('ul').hide();
           
         });
         $toc.find('a[href="#' + id + '"]').addClass('active')
@@ -957,6 +957,8 @@
 
       $window.on('scroll', onScroll);
       $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
         
         onScroll();
       });
@@ -1081,7 +1083,7 @@
 
       </span>
       <div id="github-e7758abc3ba3132a003d0e18ab5c5cbd-stargazers" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
-        43568
+        43573
       </div>
 
       <span class="text-md mr-1 text-neutral-800 dark:text-neutral">
@@ -1094,7 +1096,7 @@
 
       </span>
       <div id="github-e7758abc3ba3132a003d0e18ab5c5cbd-forks" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
-        75478
+        75506
       </div>
 
     </div>
