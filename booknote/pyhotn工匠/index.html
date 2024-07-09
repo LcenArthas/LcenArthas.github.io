@@ -110,7 +110,7 @@
     "keywords": ["技术书籍","Python","Python 图书"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "5744"
+    "wordCount": "6941"
   }]
   </script>
 
@@ -574,7 +574,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-07-06 13:49:36 &#43;0800 &#43;0800">2024-07-06</time><span class="px-2 text-primary-500">&middot;</span><span>5744 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">12 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-07-06 13:49:36 &#43;0800 &#43;0800">2024-07-06</time><span class="px-2 text-primary-500">&middot;</span><span>6941 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -937,6 +937,21 @@
         </li>
       </ul>
     </li>
+    <li><a href="#第-5-章-异常与错误处理">第 5 章 异常与错误处理</a>
+      <ul>
+        <li><a href="#1-异常捕获的经验技巧">1. 异常捕获的经验技巧</a>
+          <ul>
+            <li><a href="#1-优先使用异常捕获">1. 优先使用异常捕获</a></li>
+            <li><a href="#2-tryexcept结构">2. try/except结构</a></li>
+            <li><a href="#3-把更精确的-except-语句放在前面">3. 把更精确的 except 语句放在前面</a></li>
+            <li><a href="#4-else-分支">4. else 分支</a></li>
+            <li><a href="#5-raise-语句">5. raise 语句</a></li>
+            <li><a href="#6-可以自定义异常类">6. 可以自定义异常类</a></li>
+            <li><a href="#7-不要手动做数据校验">7. 不要手动做数据校验</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -1039,6 +1054,21 @@
             <li><a href="#2-德摩根定律">2. 德摩根定律</a></li>
             <li><a href="#3-and和or的运算优先级">3. and和or的运算优先级</a></li>
             <li><a href="#4-or运算符的陷阱">4. or运算符的陷阱</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#第-5-章-异常与错误处理">第 5 章 异常与错误处理</a>
+      <ul>
+        <li><a href="#1-异常捕获的经验技巧">1. 异常捕获的经验技巧</a>
+          <ul>
+            <li><a href="#1-优先使用异常捕获">1. 优先使用异常捕获</a></li>
+            <li><a href="#2-tryexcept结构">2. try/except结构</a></li>
+            <li><a href="#3-把更精确的-except-语句放在前面">3. 把更精确的 except 语句放在前面</a></li>
+            <li><a href="#4-else-分支">4. else 分支</a></li>
+            <li><a href="#5-raise-语句">5. raise 语句</a></li>
+            <li><a href="#6-可以自定义异常类">6. 可以自定义异常类</a></li>
+            <li><a href="#7-不要手动做数据校验">7. 不要手动做数据校验</a></li>
           </ul>
         </li>
       </ul>
@@ -2182,6 +2212,221 @@
 </span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">bool</span><span class="p">([]),</span> <span class="nb">bool</span><span class="p">({}),</span> <span class="nb">bool</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">set</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 </span></span></code></pre></div><p>所以在使用 a or b 时候，一定要注意变量的布尔值真假。</p>
+
+
+<h2 class="relative group">第 5 章 异常与错误处理 
+    <div id="%E7%AC%AC-5-%E7%AB%A0-%E5%BC%82%E5%B8%B8%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC-5-%E7%AB%A0-%E5%BC%82%E5%B8%B8%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>本章主要是作者对异常处理的经验和技巧。</p>
+
+
+<h3 class="relative group">1. 异常捕获的经验技巧 
+    <div id="1-%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">1. 优先使用异常捕获 
+    <div id="1-%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>Python社区明显偏爱基于异常捕获的EAFP（asier to ask for forgiveness than permission）风格。</p>
+<p>EAFP编程风格更为简单直接，它总是直奔主流程而去，把意外情况都放在异常处理try/except块内消化掉。</p>
+<blockquote>
+<p>所以，每当直觉驱使你写下if/else来进行错误分支判断时，请先把这份冲动放一边，考虑用try来捕获异常是不是更合适。</p>
+</blockquote>
+
+
+<h4 class="relative group">2. try/except结构 
+    <div id="2-tryexcept%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-tryexcept%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>常见的 try/except 基础语法如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">safe_int</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;尝试把输入转换为整数&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 当某类异常被抛出时，将会执行对应 except 下的语句</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;type error: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s1"> is invalid&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 你可以在一个 try 语句块下写多个 except</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;value error: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> is invalid&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># finally 里的语句，无论如何都会被执行，哪怕已经执行了return</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;function completed&#39;</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">3. 把更精确的 except 语句放在前面 
+    <div id="3-%E6%8A%8A%E6%9B%B4%E7%B2%BE%E7%A1%AE%E7%9A%84-except-%E8%AF%AD%E5%8F%A5%E6%94%BE%E5%9C%A8%E5%89%8D%E9%9D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E6%8A%8A%E6%9B%B4%E7%B2%BE%E7%A1%AE%E7%9A%84-except-%E8%AF%AD%E5%8F%A5%E6%94%BE%E5%9C%A8%E5%89%8D%E9%9D%A2" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>如果一个try代码块里包含多条 except，异常匹配会按照从上而下的顺序进行。</p>
+<p>这时，假如你不小心把一个比较模糊的<strong>父类异常</strong>放在前面，就会导致在下面的 except 永远不会被触发。</p>
+<p>所以，把更精确的异常放在前面。</p>
+<p>Python 的内置异常类之间存在许多继承关系，具体可以看<a href="https://python3.info/basics/exception/hierarchy.html"   target="_blank">
+    Python3.info</a>。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /booknote/pyhotn%E5%B7%A5%E5%8C%A0/exception-hierarchy_hu314bc799bfedc0538a7d9bae790d3339_177094_330x0_resize_box_3.png 330w,
+        /booknote/pyhotn%E5%B7%A5%E5%8C%A0/exception-hierarchy_hu314bc799bfedc0538a7d9bae790d3339_177094_660x0_resize_box_3.png 660w,
+        /booknote/pyhotn%E5%B7%A5%E5%8C%A0/exception-hierarchy_hu314bc799bfedc0538a7d9bae790d3339_177094_1024x0_resize_box_3.png 1024w,
+        /booknote/pyhotn%E5%B7%A5%E5%8C%A0/exception-hierarchy_hu314bc799bfedc0538a7d9bae790d3339_177094_1320x0_resize_box_3.png 2x"
+        src="/booknote/pyhotn%E5%B7%A5%E5%8C%A0/exception-hierarchy_hu314bc799bfedc0538a7d9bae790d3339_177094_660x0_resize_box_3.png"
+        alt=""
+      />
+      
+      <figcaption>Exception Hierarchy</figcaption>
+    </figure>
+  
+
+</p>
+
+
+<h4 class="relative group">4. else 分支 
+    <div id="4-else-%E5%88%86%E6%94%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-else-%E5%88%86%E6%94%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>如果使用 try 语句块里的 else 分支，代码可以变得更简单：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sync_profile</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span> <span class="n">to_external</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error while syncing user profile&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">send_notification</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="s1">&#39;profile sync succeeded&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>异常捕获语句里的 else 表示：仅当 try 语句块里没抛出任何异常时，才执行 else 分支下的内容，效果就像在 try 最后增加一个标记变量一样。</p>
+<blockquote>
+<p>和finally语句不同，假如程序在执行try代码块时碰到了return或break等跳转语句，中断了本次异常捕获，那么即便代码没抛出任何异常，else分支内的逻辑也<strong>不会</strong>被执行。</p>
+</blockquote>
+
+
+<h4 class="relative group">5. raise 语句 
+    <div id="5-raise-%E8%AF%AD%E5%8F%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-raise-%E8%AF%AD%E5%8F%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在 Python 中，<code>raise</code> 语句用于引发一个异常，即中断程序的正常流程并生成一个错误。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&#34;这是一个一般性的错误&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Traceback (most recent call last):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Exception: 这是一个一般性的错误</span>
+</span></span></code></pre></div><p>当我们想仅仅想记录下某个异常，然后把它重新抛出时，可以使用不带任何参数的 <code>raise</code> 语句。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">incr_by_key</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;key </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> does not exists, re-raise the exception&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span>
+</span></span></code></pre></div><p>当一个空 raise 语句出现在 except 块里时，它会原封不动地重新抛出当前异常及异常类型。</p>
+
+
+<h4 class="relative group">6. 可以自定义异常类 
+    <div id="6-%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CreateItemError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;创建 Item 失败&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;创建一个新的Item
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :raises: 当无法创建时抛出 CreateItemError
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">MAX_LENGTH_OF_NAME</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">CreateItemError</span><span class="p">(</span><span class="s1">&#39;name of item is too long&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">get_current_items</span><span class="p">())</span> <span class="o">&gt;</span> <span class="n">MAX_ITEMS_QUOTA</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">CreateItemError</span><span class="p">(</span><span class="s1">&#39;items is full&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">),</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_from_input</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span> <span class="o">=</span> <span class="n">create_item</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">CreateItemError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;create item failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;item&lt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&gt; created&#39;</span><span class="p">)</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">7. 不要手动做数据校验 
+    <div id="7-%E4%B8%8D%E8%A6%81%E6%89%8B%E5%8A%A8%E5%81%9A%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#7-%E4%B8%8D%E8%A6%81%E6%89%8B%E5%8A%A8%E5%81%9A%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在编写代码时，<strong>我们应当尽量避免手动校验任何数据。</strong>
+因为数据校验任务独立性很强，所以应该引入合适的第三方校验模块（或者自己实现），让它们来处理这部分专业工作。</p>
+<blockquote>
+<p>假如你在开发Web应用，数据校验工作通常来说比较容易。比如Django框架就有自己的表单验证模块，Flask也可以使用WTForms模块来进行数据校验。</p>
+</blockquote>
 
         </div>
         
