@@ -111,7 +111,7 @@
     "keywords": ["技术书籍","Python","Python 图书"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2345"
+    "wordCount": "3723"
   }]
   </script>
 
@@ -575,7 +575,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-07-21 16:40:02 &#43;0800 &#43;0800">2024-07-21</time><span class="px-2 text-primary-500">&middot;</span><span>2345 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-07-21 16:40:02 &#43;0800 &#43;0800">2024-07-21</time><span class="px-2 text-primary-500">&middot;</span><span>3723 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -871,6 +871,21 @@
         </li>
       </ul>
     </li>
+    <li><a href="#第-9-章-面对对象编程-">第 9 章 面对对象编程 ⭐</a>
+      <ul>
+        <li><a href="#1-私有属性">1. 私有属性</a></li>
+        <li><a href="#2-实例所有内容都在字典内">2. 实例所有内容都在字典内</a></li>
+        <li><a href="#3-内置类方法装饰器">3. 内置类方法装饰器</a>
+          <ul>
+            <li><a href="#1-classmethod-装饰器类方法">1. @classmethod 装饰器（类方法）</a></li>
+            <li><a href="#2-staticmethod-静态方法">2. @staticmethod 静态方法</a></li>
+            <li><a href="#3-preperty-属性装饰器">3. @preperty 属性装饰器</a></li>
+            <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
+            <li><a href="#5-抽象类">5. 抽象类</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -906,6 +921,21 @@
             <li><a href="#1-函数替换装饰器">1. 函数替换装饰器</a></li>
             <li><a href="#2-实例替换装饰器">2. “实例替换”装饰器</a></li>
             <li><a href="#4-装饰器设计技巧">4. 装饰器设计技巧</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#第-9-章-面对对象编程-">第 9 章 面对对象编程 ⭐</a>
+      <ul>
+        <li><a href="#1-私有属性">1. 私有属性</a></li>
+        <li><a href="#2-实例所有内容都在字典内">2. 实例所有内容都在字典内</a></li>
+        <li><a href="#3-内置类方法装饰器">3. 内置类方法装饰器</a>
+          <ul>
+            <li><a href="#1-classmethod-装饰器类方法">1. @classmethod 装饰器（类方法）</a></li>
+            <li><a href="#2-staticmethod-静态方法">2. @staticmethod 静态方法</a></li>
+            <li><a href="#3-preperty-属性装饰器">3. @preperty 属性装饰器</a></li>
+            <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
+            <li><a href="#5-抽象类">5. 抽象类</a></li>
           </ul>
         </li>
       </ul>
@@ -1357,6 +1387,247 @@
     
 </h4>
 <p>装饰器里应该只有一层浅浅的包装代码，要把核心逻辑放在其他函数与类中。</p>
+
+
+<h2 class="relative group">第 9 章 面对对象编程 ⭐ 
+    <div id="%E7%AC%AC-9-%E7%AB%A0-%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC-9-%E7%AB%A0-%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<blockquote>
+<p>在 Python 里，万物皆对象。</p>
+</blockquote>
+
+
+<h3 class="relative group">1. 私有属性 
+    <div id="1-%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在 Python 里，所有的类属性和方法默认都是公开的，不过你可以通过添加双下划线前缀 <code>__</code> 的方式把它们标示为私有。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__bar</span> <span class="o">=</span> <span class="s1">&#39;baz&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上面代码中 Foo 类的 bar 就是一个私有属性，如果你尝试从外部访问它，程序就会抛出异常</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__bar</span>
+</span></span><span class="line"><span class="cl"><span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;Foo&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;__bar&#39;</span>
+</span></span></code></pre></div><p>注意：Python里的私有只是一个“君子协议”。你可以使用 _{class}__{var} 这个别名来访问。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">_Foo__bar</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;baz&#39;</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">2. 实例所有内容都在字典内 
+    <div id="2-%E5%AE%9E%E4%BE%8B%E6%89%80%E6%9C%89%E5%86%85%E5%AE%B9%E9%83%BD%E5%9C%A8%E5%AD%97%E5%85%B8%E5%86%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E5%AE%9E%E4%BE%8B%E6%89%80%E6%9C%89%E5%86%85%E5%AE%B9%E9%83%BD%E5%9C%A8%E5%AD%97%E5%85%B8%E5%86%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>一个类实例的所有成员，其实都保存在了一个名为 <code>__dict__</code> 的字典属性中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Hi, My name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, I&#39;m </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>查看 <code>__dict__</code> ：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">&#39;raymond&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="vm">__dict__</span><span class="err">➊</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;raymond&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">Person</span><span class="o">.</span><span class="vm">__dict__</span><span class="err">➋</span>
+</span></span><span class="line"><span class="cl"><span class="n">mappingproxy</span><span class="p">({</span><span class="s1">&#39;__module__&#39;</span><span class="p">:</span> <span class="s1">&#39;__main__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">Person</span><span class="o">.</span><span class="n">__init__at</span> <span class="mh">0x109611ca0</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;say&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">Person</span><span class="o">.</span><span class="n">say</span> <span class="n">at</span> <span class="mh">0x109611d30</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;__dict__&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">attribute</span> <span class="s1">&#39;__dict__&#39;</span> <span class="n">of</span> <span class="s1">&#39;Person&#39;</span> <span class="n">objects</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;__weakref__&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">attribute</span> <span class="s1">&#39;__weakref__&#39;</span> <span class="n">of</span> <span class="s1">&#39;Person&#39;</span> <span class="n">objects</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+</span></span></code></pre></div><p>❶ 实例的 <code>__dict__</code> 里，保存着当前实例的所有数据。</p>
+<p>❷ 类的 <code>__dict__</code> 里，保存着类的文档、方法等所有数据。</p>
+
+
+<h3 class="relative group">3. 内置类方法装饰器 
+    <div id="3-%E5%86%85%E7%BD%AE%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E5%86%85%E7%BD%AE%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+
+
+<h4 class="relative group">1. @classmethod 装饰器（类方法） 
+    <div id="1-classmethod-%E8%A3%85%E9%A5%B0%E5%99%A8%E7%B1%BB%E6%96%B9%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-classmethod-%E8%A3%85%E9%A5%B0%E5%99%A8%E7%B1%BB%E6%96%B9%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>普通方法无法通过类来调用，但你可以用 <strong>@classmethod装饰器</strong> 定义一种特殊的方法：类方法（class method），它属于类但是无须实例化也可调用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Duck</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@classmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">create_random</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span> <span class="err">➊</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;创建一只随机颜色的鸭子&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+</span></span></code></pre></div><p>❶ 普通方法接收类实例（self）作为参数，但类方法的第一个参数是类本身，通常使用名字 cls。</p>
+<p>调用效果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Duck</span><span class="o">.</span><span class="n">create_random</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">quack</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hi</span><span class="p">,</span> <span class="n">I</span><span class="s1">&#39;m a white duck!</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">create_random</span><span class="p">()</span> <span class="err">➊</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">Duck</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10f8f2f40</span><span class="o">&gt;</span>
+</span></span></code></pre></div>
+
+<h4 class="relative group">2. @staticmethod 静态方法 
+    <div id="2-staticmethod-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-staticmethod-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>如果某个方法不需要使用当前实例里的任何内容，那可以使用 <strong>@staticmethod</strong> 来定义一个静态方法。</p>
+<p>其实和外部一个普通函数类似。但是静态方法可以被子类继承和重写。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Cat</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sound</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">sound</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="nd">@staticmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_sound</span><span class="p">():</span> <span class="err">➊</span>
+</span></span><span class="line"><span class="cl">        <span class="n">repeats</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;Meow&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">repeats</span><span class="p">)</span>
+</span></span></code></pre></div><p>❶ 静态方法不接收当前实例作为第一个位置参数。</p>
+
+
+<h4 class="relative group">3. @preperty 属性装饰器 
+    <div id="3-preperty-%E5%B1%9E%E6%80%A7%E8%A3%85%E9%A5%B0%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-preperty-%E5%B1%9E%E6%80%A7%E8%A3%85%E9%A5%B0%E5%99%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<blockquote>
+<p>在一个类里，属性和方法有着不同的职责：属性代表状态，方法代表行为。</p>
+</blockquote>
+<p>使用 <strong>@property装饰器</strong>，你可以把方法变成一个虚拟属性，然后像使用普通属性一样使用它：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FilePath</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@property</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;获取文件名&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span></code></pre></div><p>调用效果如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">FilePath</span><span class="p">(</span><span class="s1">&#39;/tmp/foo.py&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">basename</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;foo.py&#39;</span>
+</span></span></code></pre></div><p>@property 除了可以定义属性的读取逻辑外，还支持自定义写入和删除逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FilePath</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@property</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;获取文件名&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@basename.setter</span> <span class="err">➊</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span> <span class="err">➋</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;修改当前路径里的文件名部分&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@basename.deleter</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="err">➌</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Can not delete basename!&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p>❶ 经过 @property 的装饰以后，basename已经从一个普通方法变成了 property 对象，因此这里可以使用 basename.setter。</p>
+<p>❷ 定义 setter 方法，该方法会在对属性赋值时被调用。</p>
+<p>❸ 定义 deleter 方法，该方法会在删除属性时被调用。</p>
+<p>调用效果如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt;&gt;&gt; <span class="nv">p</span> <span class="o">=</span> FilePath<span class="o">(</span><span class="s1">&#39;/tmp/foo.py&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; p.basename <span class="o">=</span> <span class="s1">&#39;bar.txt&#39;</span> <span class="c1"># 触发 setter 方法</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; p.path
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;/tmp/bar.txt&#39;</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; del p.basename <span class="c1"># 触发 deleter 方法</span>
+</span></span><span class="line"><span class="cl">RuntimeError: Can not delete basename!
+</span></span></code></pre></div>
+
+<h4 class="relative group">4. 鸭子类型 
+    <div id="4-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>“鸭子类型”是 Python 语言最鲜明的特点之一，在该风格下，一般不做任何严格的类型检查。</p>
+<p>在鸭子类型中，关注点在于对象的行为（方法/函数）能做什么；而不是关注对象所属的类型。</p>
+<p>在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的&quot;走&quot;和&quot;叫&quot;方法。</p>
+<p>缺点就是：缺乏标准，不需要严格的类型校验；鸭子类型使用的前提是需要良好的文档支持，不然会让代码变得很混乱，如果没有良好的文档及说明，有可能会导致你的“鸭子”不是我的“鹅”了。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/01_hu9d2214fe9cec76d3e326675d515019f9_599998_330x0_resize_box_3.png 330w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/01_hu9d2214fe9cec76d3e326675d515019f9_599998_660x0_resize_box_3.png 660w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/01_hu9d2214fe9cec76d3e326675d515019f9_599998_1024x0_resize_box_3.png 1024w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/01_hu9d2214fe9cec76d3e326675d515019f9_599998_1320x0_resize_box_3.png 2x"
+        src="/booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/01_hu9d2214fe9cec76d3e326675d515019f9_599998_660x0_resize_box_3.png"
+        alt="Duck typing"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+
+
+<h4 class="relative group">5. 抽象类 
+    <div id="5-%E6%8A%BD%E8%B1%A1%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E6%8A%BD%E8%B1%A1%E7%B1%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>抽象类是一种特殊的类。</p>
 
         </div>
         
