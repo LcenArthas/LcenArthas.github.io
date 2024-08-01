@@ -111,7 +111,7 @@
     "keywords": ["技术书籍","Python","Python 图书"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "3723"
+    "wordCount": "6610"
   }]
   </script>
 
@@ -575,7 +575,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-07-21 16:40:02 &#43;0800 &#43;0800">2024-07-21</time><span class="px-2 text-primary-500">&middot;</span><span>3723 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-07-21 16:40:02 &#43;0800 &#43;0800">2024-07-21</time><span class="px-2 text-primary-500">&middot;</span><span>6610 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -880,8 +880,28 @@
             <li><a href="#1-classmethod-装饰器类方法">1. @classmethod 装饰器（类方法）</a></li>
             <li><a href="#2-staticmethod-静态方法">2. @staticmethod 静态方法</a></li>
             <li><a href="#3-preperty-属性装饰器">3. @preperty 属性装饰器</a></li>
-            <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
-            <li><a href="#5-抽象类">5. 抽象类</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
+        <li><a href="#5-抽象类">5. 抽象类</a>
+          <ul>
+            <li><a href="#1-抽象类的作用">1. 抽象类的作用</a></li>
+            <li><a href="#2-定义抽象类">2. 定义抽象类</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-面向对象设计">6. 面向对象设计</a></li>
+        <li><a href="#7-有序组织你的类方法">7. 有序组织你的类方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#第-10-章-面向对象的设计原则上">第 10 章 面向对象的设计原则（上）</a>
+      <ul>
+        <li><a href="#1-类型注释基础">1. 类型注释基础</a></li>
+        <li><a href="#2-srp-单一职责原则">2. SRP: 单一职责原则</a></li>
+        <li><a href="#3-ocp开放-关闭原则">3. OCP：开放-关闭原则</a>
+          <ul>
+            <li><a href="#1-通过继承改造代码">1. 通过继承改造代码</a></li>
+            <li><a href="#2-使用组合与依赖注入">2. 使用组合与依赖注入</a></li>
+            <li><a href="#3-使用数据驱动">3. 使用数据驱动</a></li>
           </ul>
         </li>
       </ul>
@@ -934,8 +954,28 @@
             <li><a href="#1-classmethod-装饰器类方法">1. @classmethod 装饰器（类方法）</a></li>
             <li><a href="#2-staticmethod-静态方法">2. @staticmethod 静态方法</a></li>
             <li><a href="#3-preperty-属性装饰器">3. @preperty 属性装饰器</a></li>
-            <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
-            <li><a href="#5-抽象类">5. 抽象类</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-鸭子类型">4. 鸭子类型</a></li>
+        <li><a href="#5-抽象类">5. 抽象类</a>
+          <ul>
+            <li><a href="#1-抽象类的作用">1. 抽象类的作用</a></li>
+            <li><a href="#2-定义抽象类">2. 定义抽象类</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-面向对象设计">6. 面向对象设计</a></li>
+        <li><a href="#7-有序组织你的类方法">7. 有序组织你的类方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#第-10-章-面向对象的设计原则上">第 10 章 面向对象的设计原则（上）</a>
+      <ul>
+        <li><a href="#1-类型注释基础">1. 类型注释基础</a></li>
+        <li><a href="#2-srp-单一职责原则">2. SRP: 单一职责原则</a></li>
+        <li><a href="#3-ocp开放-关闭原则">3. OCP：开放-关闭原则</a>
+          <ul>
+            <li><a href="#1-通过继承改造代码">1. 通过继承改造代码</a></li>
+            <li><a href="#2-使用组合与依赖注入">2. 使用组合与依赖注入</a></li>
+            <li><a href="#3-使用数据驱动">3. 使用数据驱动</a></li>
           </ul>
         </li>
       </ul>
@@ -1572,7 +1612,7 @@
 </span></span><span class="line"><span class="cl">RuntimeError: Can not delete basename!
 </span></span></code></pre></div>
 
-<h4 class="relative group">4. 鸭子类型 
+<h3 class="relative group">4. 鸭子类型 
     <div id="4-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" class="anchor"></div>
     
     <span
@@ -1581,7 +1621,7 @@
             style="text-decoration-line: none !important;" href="#4-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
     </span>        
     
-</h4>
+</h3>
 <p>“鸭子类型”是 Python 语言最鲜明的特点之一，在该风格下，一般不做任何严格的类型检查。</p>
 <p>在鸭子类型中，关注点在于对象的行为（方法/函数）能做什么；而不是关注对象所属的类型。</p>
 <p>在使用鸭子类型的语言中，这样的一个函数可以接受一个任意类型的对象，并调用它的&quot;走&quot;和&quot;叫&quot;方法。</p>
@@ -1617,7 +1657,7 @@
 </p>
 
 
-<h4 class="relative group">5. 抽象类 
+<h3 class="relative group">5. 抽象类 
     <div id="5-%E6%8A%BD%E8%B1%A1%E7%B1%BB" class="anchor"></div>
     
     <span
@@ -1626,8 +1666,327 @@
             style="text-decoration-line: none !important;" href="#5-%E6%8A%BD%E8%B1%A1%E7%B1%BB" aria-label="锚点">#</a>
     </span>        
     
-</h4>
+</h3>
 <p>抽象类是一种特殊的类。</p>
+<p>在Python中抽象类<strong>只能被继承</strong>，<strong>不能被实例化</strong>。</p>
+<p>继承于抽象基类的子类<strong>必须给出所有抽象方法和属性的具体实现</strong>，才可以进行正常的实例化。</p>
+
+
+<h4 class="relative group">1. 抽象类的作用 
+    <div id="1-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在面向对象思想中，<strong>抽象基类一般用于统一接口，使得业务代码可以不随着实现得改变而改变（因为抽象基类已经确定了接口）</strong>（下两章的内容）。例如，如果把“动物”作为一个抽象类，那么它可以拥有诸如“吃”或“叫”的方法。但是，抽象类本身可以不实现方法，只需要定义框架，因为不同的子类（例如“猫”和“狗”）对方法的实现可能是不同的。既然这样，为什么不直接定义子类呢？是因为当有了抽象类后，你可以这样说“我养了一只&lt;动物&gt;，它这样&rsquo;&lt;动物&gt;.吃&rsquo;, 那样&rsquo;&lt;动物&gt;.叫&rsquo;“。只要传递的是”动物“的子类，那么这句话就是正确的且不需要修改的，因为”动物“这个抽象类已经把接口形式定义好了。抽象类的另一个使用方式是通过类型检查来确定某些接口是否存在，例如，“如果它是一只动物，那么它既能&rsquo;吃&rsquo;，又能&rsquo;叫&rsquo;”。</p>
+<p>简单来说，在不同的模块中通过抽象基类来调用，可以用最精简的方式展示出代码之间的逻辑关系，让模块之间的依赖清晰简单。</p>
+<p>抽象类的编程，让每个人可以关注当前抽象类的方法和描述，而不需要考虑过多的实现细节，这对协同开发有很大意义，也让代码可读性更高。</p>
+
+
+<h4 class="relative group">2. 定义抽象类 
+    <div id="2-%E5%AE%9A%E4%B9%89%E6%8A%BD%E8%B1%A1%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E5%AE%9A%E4%B9%89%E6%8A%BD%E8%B1%A1%E7%B1%BB" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>在 Python 中，抽象基类由标准库 abc 支持。abc 中提供了两个核心的用于抽象基类的类：ABCMeta 和 ABC，前者用于自定义抽象基类时指定为元类，而后者则提供了可以直接继承来使用的抽象基类。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 导入抽象类需要用到的库</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;使用元类（模板类）&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">pname</span> <span class="o">=</span> <span class="s2">&#34;这是Person抽象类&#34;</span>  <span class="c1"># 可以定义属性</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 定义抽象方法，抽象方法不需要方法体</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 需要在方法前加@abstractmethod装饰器</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>  <span class="c1"># 不需要写方法体</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nd">@classmethod</span>  <span class="c1"># 可以定义类方法</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;在吃东西啊&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="nd">@staticmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">drink</span><span class="p">():</span>  <span class="c1"># 可以定义静态方法</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;在喝东西啊&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 可以定义普通方法</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;在睡觉啊&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>继承了抽象类，<strong>必须重写抽象类中的抽象方法 @abstractmethod装饰器</strong>，否则无法实例化对象，并抛异常。</p>
+<p>类 ABC 是 abc 模块提供的用于直接继承的抽象基类，也就是说，上面例子中所有的 metaclass=abc.ABCMeta 都可以直接替换为 abc.ABC：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">abc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;使用元类（模板类）&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">pname</span> <span class="o">=</span> <span class="s2">&#34;这是Person抽象类&#34;</span>  <span class="c1"># 可以定义属性</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>  <span class="c1"># 不需要写方法体</span>
+</span></span></code></pre></div><blockquote>
+<p>抽象类是软件开发中一个非常重要的概念，通过定义抽象类，我们可以约定子类必需实现的方法。当我们一个类有几十上百个方法时，用抽象方法来防止子类漏掉某些方法是非常方便的做法。</p>
+</blockquote>
+
+
+<h3 class="relative group">6. 面向对象设计 
+    <div id="6-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>
+<p>继承提供了相当强大的代码复用机制，但同时也带来了非常紧密的耦合关系。</p>
+</li>
+<li>
+<p>错误使用继承容易导致代码失控。</p>
+</li>
+<li>
+<p><strong>对事物的行为而不是事物本身建模</strong>，更容易孵化出好的面向对象设计。</p>
+</li>
+<li>
+<p>在创建继承关系时应当谨慎。用组合来替代继承有时是更好的做法。</p>
+</li>
+</ul>
+
+
+<h3 class="relative group">7. 有序组织你的类方法 
+    <div id="7-%E6%9C%89%E5%BA%8F%E7%BB%84%E7%BB%87%E4%BD%A0%E7%9A%84%E7%B1%BB%E6%96%B9%E6%B3%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#7-%E6%9C%89%E5%BA%8F%E7%BB%84%E7%BB%87%E4%BD%A0%E7%9A%84%E7%B1%BB%E6%96%B9%E6%B3%95" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在组织类方法时，我们应该关注使用者的诉求，把他们最想知道的内容放在前面，把他们不那么关心的内容放在后面。</p>
+<ul>
+<li>
+<p>作为惯例，<code>__init__</code> 实例化方法应该总是放在类的最前面，<code>__new__</code> 方法同理。</p>
+</li>
+<li>
+<p>公有方法应该放在类的前面，因为它们是其他模块调用类的入口，是类的门面，也是所有人最关心的内容。</p>
+</li>
+<li>
+<p>以 <code>_</code> 开头的私有方法，大部分是类自身的实现细节，应该放在靠后的位置。</p>
+</li>
+<li>
+<p>以 <code>__</code> 开头的魔法方法比较特殊，通常按照方法的重要程度来决定它们的位置。比如一个迭代器类的<code>__iter__</code> 方法应该放在非常靠前的位置，因为它是构成类接口的重要方法。</p>
+</li>
+<li>
+<p>最后一点，当你从上往下阅读类时，所有方法的抽象级别应该是不断降低的，就好像阅读一篇新闻一样，第一段是新闻的概要，之后才会描述细节。</p>
+</li>
+</ul>
+
+
+<h2 class="relative group">第 10 章 面向对象的设计原则（上） 
+    <div id="%E7%AC%AC-10-%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8A" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC-10-%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8A" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>SOLID 原则的雏形来自 Robert C. Martin（Bob大叔）于2000年发表的一篇文章。</p>
+<p>SOLID 单词里的5个字母，分别代表5条设计原则。</p>
+<ul>
+<li>S：single responsibility principle（单一职责原则，SRP）。</li>
+<li>O：open-closed principle（开放–关闭原则，OCP）。</li>
+<li>L：Liskov substitution principle（里式替换原则，LSP）。</li>
+<li>I：interface segregation principle（接口隔离原则，ISP）。</li>
+<li>D：dependency inversion principle（依赖倒置原则，DIP）。</li>
+</ul>
+
+
+<h3 class="relative group">1. 类型注释基础 
+    <div id="1-%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A%E5%9F%BA%E7%A1%80" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A%E5%9F%BA%E7%A1%80" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>下面是添加了<strong>类型注解</strong>后的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Duck</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span> <span class="err">➊</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">quack</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="err">➋</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Hi, I&#39;m a </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="si">}</span><span class="s2"> duck!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_random_ducks</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Duck</span><span class="p">]:</span> <span class="err">➌</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ducks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Duck</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="err">➍</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">number</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">])</span> <span class="err">➎</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ducks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Duck</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ducks</span>
+</span></span></code></pre></div><p>❶ 给函数参数加上类型注解。</p>
+<p>❷ 通过-&gt;给返回值加上类型注解。</p>
+<p>❸ 你可以用typing模块的特殊对象List来标注列表成员的具体类型，注意，这里用的是[]符号，而不是()。</p>
+<p>❹ 声明变量时，也可以为其加上类型注解。</p>
+<p>❺ 类型注解是可选的，非常自由，比如这里的 color 变量就没加类型注解。</p>
+
+
+<h3 class="relative group">2. SRP: 单一职责原则 
+    <div id="2-srp-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-srp-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>SRP认为：一个类应该仅有一个被修改的理由。换句话说，每个类都应该只承担一种职责。</p>
+<p>单个类承担的职责越多，就意味着这个类越复杂，越难维护。</p>
+<p>怎么修改脚本才能让它符合 SRP 呢？</p>
+<p>办法有很多，其中最传统的就是把<strong>大类拆分为小类</strong>。</p>
+<p>函数同样可以做到“单一职责。将某个职责拆分为新函数是一个具有 Python 特色的解决方案。它虽然没有那么“面向对象”，却非常实用，甚至在许多场景下比编写类更简单、更高效。</p>
+
+
+<h3 class="relative group">3. OCP：开放-关闭原则 
+    <div id="3-ocp%E5%BC%80%E6%94%BE-%E5%85%B3%E9%97%AD%E5%8E%9F%E5%88%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-ocp%E5%BC%80%E6%94%BE-%E5%85%B3%E9%97%AD%E5%8E%9F%E5%88%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>该原则认为：<strong>类应该对扩展开放，对修改封闭</strong>。换句话说，你可以在不修改某个类的前提下，扩展它的行为。(本身不变，但是易于扩展)</p>
+
+
+<h4 class="relative group">1. 通过继承改造代码 
+    <div id="1-%E9%80%9A%E8%BF%87%E7%BB%A7%E6%89%BF%E6%94%B9%E9%80%A0%E4%BB%A3%E7%A0%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E9%80%9A%E8%BF%87%E7%BB%A7%E6%89%BF%E6%94%B9%E9%80%A0%E4%BB%A3%E7%A0%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p><strong>继承</strong>提供了强大的代码复用能力。继承允许我们用一种新增子类而不是修改原有类的方式来扩展程序的行为，这恰好符合OCP。</p>
+<p>而要做到有效地扩展，关键点在于先找到父类中不稳定、会变动的内容。只有将这部分变化封装成方法（或属性），子类才能通过继承重写这部分行为。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/02_hu3072b49e3092b7a4e472815200d0da4e_111951_330x0_resize_box_3.png 330w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/02_hu3072b49e3092b7a4e472815200d0da4e_111951_660x0_resize_box_3.png 660w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/02_hu3072b49e3092b7a4e472815200d0da4e_111951_1024x0_resize_box_3.png 1024w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/02_hu3072b49e3092b7a4e472815200d0da4e_111951_1320x0_resize_box_3.png 2x"
+        src="/booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/02_hu3072b49e3092b7a4e472815200d0da4e_111951_660x0_resize_box_3.png"
+        alt="通过继承践行OCP"
+      />
+      
+      <figcaption>通过继承践行OCP</figcaption>
+    </figure>
+  
+
+</p>
+
+
+<h4 class="relative group">2. 使用组合与依赖注入 
+    <div id="2-%E4%BD%BF%E7%94%A8%E7%BB%84%E5%90%88%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E4%BD%BF%E7%94%A8%E7%BB%84%E5%90%88%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>除了继承外，我们还可以采用另一种思路：<strong>组合（composition）</strong>。更具体地说，使用基于组合思想的依赖注入（dependency injection）技术。</p>
+<p>依赖注入允许我们在创建对象时，将业务逻辑中易变的部分（常被称为“算法”）<strong>通过初始化参数注入对象里</strong>，最终利用多态特性达到“不改代码来扩展类”的效果。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/04_hu0bfe117bc59ddba1d8359e72c12bd47c_58927_330x0_resize_box_3.png 330w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/04_hu0bfe117bc59ddba1d8359e72c12bd47c_58927_660x0_resize_box_3.png 660w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/04_hu0bfe117bc59ddba1d8359e72c12bd47c_58927_1024x0_resize_box_3.png 1024w,
+        /booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/04_hu0bfe117bc59ddba1d8359e72c12bd47c_58927_1320x0_resize_box_3.png 2x"
+        src="/booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/04_hu0bfe117bc59ddba1d8359e72c12bd47c_58927_660x0_resize_box_3.png"
+        alt="通过依赖注入实现OCP"
+      />
+      
+      <figcaption>通过依赖注入实现OCP</figcaption>
+    </figure>
+  
+
+</p>
+<blockquote>
+<p>所以我必须编写一个抽象类，以此满足类型注解的需求。</p>
+</blockquote>
+
+
+<h4 class="relative group">3. 使用数据驱动 
+    <div id="3-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>它的核心思想是：将经常变动的部分以数据的方式抽离出来，当需求变化时，只改动数据，代码逻辑可以保持不动。</p>
+<p>依赖注入抽离的通常是<strong>类</strong>，而数据驱动抽离的是<strong>纯粹的数据</strong>。</p>
+<ul>
+<li>优点：使用数据驱动的代码明显更简洁，因为它不需要定义任何额外的类。</li>
+<li>缺点：它的可定制性不如其他两种方式。</li>
+</ul>
+<p>影响每种方案可定制性的根本原因在于，各方案所处的<strong>抽象级别</strong>不一样。</p>
 
         </div>
         
