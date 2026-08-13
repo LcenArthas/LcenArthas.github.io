@@ -9,7 +9,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/</loc>
+    <loc>https://lcenarthas.github.io/reading-movie/python%E5%B7%A5%E5%8C%A0%E4%B8%8B/</loc>
     <lastmod>2024-07-21T16:40:02+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -45,7 +45,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/booknote/</loc>
+    <loc>https://lcenarthas.github.io/reading-movie/</loc>
     <lastmod>2024-07-21T16:40:02+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -57,7 +57,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/booknote/python%E5%B7%A5%E5%8C%A0%E4%B8%8A/</loc>
+    <loc>https://lcenarthas.github.io/reading-movie/python%E5%B7%A5%E5%8C%A0%E4%B8%8A/</loc>
     <lastmod>2024-07-06T13:49:36+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -69,7 +69,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/blog/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/</loc>
+    <loc>https://lcenarthas.github.io/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/</loc>
     <lastmod>2024-06-29T17:20:56+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -81,13 +81,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/blog/</loc>
+    <loc>https://lcenarthas.github.io/tech/</loc>
     <lastmod>2024-06-29T17:20:56+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/blog/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</loc>
+    <loc>https://lcenarthas.github.io/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</loc>
     <lastmod>2024-06-25T23:59:56+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -105,7 +105,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/blog/%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E6%96%87%E7%AB%A0%E6%8A%80%E6%9C%AF%E7%AF%87/</loc>
+    <loc>https://lcenarthas.github.io/tech/%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E6%96%87%E7%AB%A0%E6%8A%80%E6%9C%AF%E7%AF%87/</loc>
     <lastmod>2024-06-23T16:29:44+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -123,7 +123,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/blog/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/</loc>
+    <loc>https://lcenarthas.github.io/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/</loc>
     <lastmod>2024-06-15T16:04:46+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -145,7 +145,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://lcenarthas.github.io/movienote/</loc>
+    <loc>https://lcenarthas.github.io/weekly/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
