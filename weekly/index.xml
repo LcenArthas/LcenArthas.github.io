@@ -7,6 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2026 White Liu</copyright>
-    <atom:link href="https://lcenarthas.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lcenarthas.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2026 年周记</title>
+      <link>https://lcenarthas.github.io/weekly/2026/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://lcenarthas.github.io/weekly/2026/</guid>
+      <description>2026 年的生活、记录与思考。</description>
+      
+    </item>
+    
   </channel>
 </rss>
