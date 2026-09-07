@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>从一张表情图到目标角色：Blendshape 迁移的思路与工具 &middot; 上善若水</title>
+  <meta name="title" content="从一张表情图到目标角色：Blendshape 迁移的思路与工具 &middot; 上善若水" />
+  
+  <meta name="description" content="从表情迁移、dense correspondence 到单张渲染图驱动的个性化拟合，梳理 Blendshape 迁移的实际问题、开源工具与可落地工作流。" />
+  <meta name="keywords" content="技术, 计算机图形学, 角色动画, Blendshape, 可微渲染, " />
+  
+  
+  <link rel="canonical" href="https://lcenarthas.github.io/tech/blendshape-transfer-from-a-single-reference-image/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.65a921367f9d3867fdeb092055c3411a28bd9a2245f22e77e199e7d084c43ebca67b4cf12a20ee8a0f4ce34439bd9f89539573b82ad04ab3478f8d548a158065.css"
+    integrity="sha512-ZakhNn&#43;dOGf96wkgVcNBGii9miJF8i534Znn0ITEPryme0zxKiDuig9M40Q5vZ&#43;JU5VzuCrQSrNHj41UihWAZQ==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.d6c35110b5d7df8014403fbb81cd21a9d89daf9eb586c936e585e9d04adc204dce554aa737f81e8c902b9dea9e67bd63a977b77dedefb8a39430581ebc519207.js"
+    integrity="sha512-1sNRELXX34AUQD&#43;7gc0hqdidr561hsk25YXp0ErcIE3OVUqnN/gejJArneqeZ71jqXe3fe3vuKOUMFgevFGSBw==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://lcenarthas.github.io/tech/blendshape-transfer-from-a-single-reference-image/">
+  <meta property="og:site_name" content="上善若水">
+  <meta property="og:title" content="从一张表情图到目标角色：Blendshape 迁移的思路与工具">
+  <meta property="og:description" content="从表情迁移、dense correspondence 到单张渲染图驱动的个性化拟合，梳理 Blendshape 迁移的实际问题、开源工具与可落地工作流。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2026-09-08T01:00:00+08:00">
+    <meta property="article:modified_time" content="2026-09-08T01:00:00+08:00">
+    <meta property="article:tag" content="技术">
+    <meta property="article:tag" content="计算机图形学">
+    <meta property="article:tag" content="角色动画">
+    <meta property="article:tag" content="Blendshape">
+    <meta property="article:tag" content="可微渲染">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="从一张表情图到目标角色：Blendshape 迁移的思路与工具">
+  <meta name="twitter:description" content="从表情迁移、dense correspondence 到单张渲染图驱动的个性化拟合，梳理 Blendshape 迁移的实际问题、开源工具与可落地工作流。">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "技术",
+    "name": "从一张表情图到目标角色：Blendshape 迁移的思路与工具",
+    "headline": "从一张表情图到目标角色：Blendshape 迁移的思路与工具",
+    "description": "从表情迁移、dense correspondence 到单张渲染图驱动的个性化拟合，梳理 Blendshape 迁移的实际问题、开源工具与可落地工作流。",
+    
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/lcenarthas.github.io\/tech\/blendshape-transfer-from-a-single-reference-image\/",
+    "author" : {
+      "@type": "Person",
+      "name": "White Liu"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-09-08T01:00:00\u002b08:00",
+    "datePublished": "2026-09-08T01:00:00\u002b08:00",
+    
+    "dateModified": "2026-09-08T01:00:00\u002b08:00",
+    
+    "keywords": ["技术","计算机图形学","角色动画","Blendshape","可微渲染"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "4946"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="White Liu" />
+  
+  
+  
+  <link href="https://x.com/shouwangzhelcen" rel="me" />
+  
+  
+  <link href="https://github.com/LcenArthas" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.af6f85907cdfd6ed3e4906d93a8233d91c5638859f744cd1b98c9b1a3ccaab5f231bdcda49f132f6cdfe8cca86ff33ed468affab8a9a502610a664a34f0f0cfa.css" integrity="sha512-r2&#43;FkHzf1u0&#43;SQbZOoIz2RxWOIWfdEzRuYybGjzKq18jG9zaSfEy9s3&#43;jMqG/zPtRor/q4qaUCYQpmSjTw8M&#43;g==" />
+
+
+<script defer src="/lib/katex/katex.min.20da6cf7343619410c0900fbc626506c65159ea9f312f9729d5cba7aa713707378f9a4222e8f7fb9a42a7240e9749f199b7334401b3e3e4b60e29cf490492552.js" integrity="sha512-INps9zQ2GUEMCQD7xiZQbGUVnqnzEvlynVy6eqcTcHN4&#43;aQiLo9/uaQqckDpdJ8Zm3M0QBs&#43;Pktg4pz0kEklUg=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.6095714e3aadb63b14ddc4af69346ab12974c1b460654345f8d1860a0b68fcc51b22f68b757433193090bb80afc8965b65cb607e5541d0f5f0f4b2e64d69b9ff.js" integrity="sha512-YJVxTjqttjsU3cSvaTRqsSl0wbRgZUNF&#43;NGGCgto/MUbIvaLdXQzGTCQu4CvyJZbZctgflVB0PXw9LLmTWm5/w=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-141Z1N2SC7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-141Z1N2SC7');
+</script>
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+  
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script>
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBiDcuDTo1WuOz0CZ8otVxG5MzNw9c0UaU",
+      authDomain: "AIzaSyBiDcuDTo1WuOz0CZ8otVxG5MzNw9c0UaU",
+      projectId: "white-blog",
+      storageBucket: "white-blog.appspot.com",
+      messagingSenderId: "307372550909",
+      appId: "1:307372550909:web:35143c5e7ad20e67cf2c94",
+      measurementId: "G-141Z1N2SC7"
+    };
+
+    var app = firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+    var auth = firebase.auth();
+
+  </script>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    
+    
+    <div>
+        <a href="/" class="flex">
+            <span class="sr-only">上善若水</span>
+
+            <img src="/img/icon.png" width="36" height="36"
+                class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="上善若水" />
+
+        </a>
+    </div>
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">上善若水</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/tech/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        技术
+    </p>
+</a>
+
+
+            
+            
+  <a href="/reading-movie/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        读书&amp;电影
+    </p>
+</a>
+
+
+            
+            
+  <a href="/weekly/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        周记
+    </p>
+</a>
+
+
+            
+            
+  <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        关于
+    </p>
+</a>
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/tech/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            技术
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/reading-movie/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            读书&amp;电影
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/weekly/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            周记
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            关于
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/tech/"
+      >技术</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/tech/blendshape-transfer-from-a-single-reference-image/"
+      >从一张表情图到目标角色：Blendshape 迁移的思路与工具</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      从一张表情图到目标角色：Blendshape 迁移的思路与工具
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-09-08 01:00:00 &#43;0800 &#43;0800">2026-09-08</time><span class="px-2 text-primary-500">&middot;</span><span>4946 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/从一张表情图到目标角色：Blendshape 迁移的思路与工具/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.ccc8b2a0c4505216444ca25530c7328aa0bef94f43dabaf3e598e1b4271de9eec76c1cb35917471a4f7ccb8d84051b3acef42baa30724ac3a667fcf1fec4432a.js" integrity="sha512-zMiyoMRQUhZETKJVMMcyiqC&#43;&#43;U9D2rrz5ZjhtCcd6e7HbByzWRdHGk98y42EBRs6zvQrqjBySsOmZ/zx/sRDKg=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    计算机图形学
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    角色动画
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/blendshape/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Blendshape
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E5%8F%AF%E5%BE%AE%E6%B8%B2%E6%9F%93/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    可微渲染
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="White Liu" src="/img/crop_hu5738175937673966094.gif" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      White Liu
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">醉后不知天在水，满船清梦压星河</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://x.com/shouwangzhelcen"
+          target="_blank"
+          aria-label="X-Twitter"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/LcenArthas"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open class="toc-right mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#先说清楚我们究竟在迁移什么">先说清楚：我们究竟在迁移什么</a></li>
+    <li><a href="#三种难度完全不同的场景">三种难度完全不同的场景</a></li>
+    <li><a href="#单张-smile-渲染图能告诉我们什么">单张 smile 渲染图能告诉我们什么</a></li>
+    <li><a href="#为什么不能直接优化所有顶点">为什么不能直接优化所有顶点</a></li>
+    <li><a href="#一条可落地的工作流">一条可落地的工作流</a>
+      <ul>
+        <li><a href="#第一步准备-neutral-与组件">第一步：准备 neutral 与组件</a></li>
+        <li><a href="#第二步建立-correspondence-或生成表情先验">第二步：建立 correspondence 或生成表情先验</a></li>
+        <li><a href="#第三步得到-b-的候选-smile">第三步：得到 B 的候选 smile</a></li>
+        <li><a href="#第四步用参考图做-personalization">第四步：用参考图做 personalization</a></li>
+        <li><a href="#第五步验证它是不是一个真正可用的-blendshape">第五步：验证它是不是一个真正可用的 blendshape</a></li>
+      </ul>
+    </li>
+    <li><a href="#可以使用哪些开源工具">可以使用哪些开源工具</a>
+      <ul>
+        <li><a href="#nfr为不同-topology-的脸生成迁移初值">NFR：为不同 topology 的脸生成迁移初值</a></li>
+        <li><a href="#emoca--deca从单张图估计表情">EMOCA / DECA：从单张图估计表情</a></li>
+        <li><a href="#ict-facekit标准表情空间与模板">ICT-FaceKit：标准表情空间与模板</a></li>
+        <li><a href="#pytorch3dnvdiffrast-与-redner可微渲染层">PyTorch3D、nvdiffrast 与 redner：可微渲染层</a></li>
+      </ul>
+    </li>
+    <li><a href="#到-2026-年哪一种方案最好">到 2026 年，哪一种方案最好</a></li>
+    <li><a href="#可微渲染不是答案而是一种反馈机制">可微渲染不是答案，而是一种反馈机制</a></li>
+    <li><a href="#最后">最后</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#先说清楚我们究竟在迁移什么">先说清楚：我们究竟在迁移什么</a></li>
+    <li><a href="#三种难度完全不同的场景">三种难度完全不同的场景</a></li>
+    <li><a href="#单张-smile-渲染图能告诉我们什么">单张 smile 渲染图能告诉我们什么</a></li>
+    <li><a href="#为什么不能直接优化所有顶点">为什么不能直接优化所有顶点</a></li>
+    <li><a href="#一条可落地的工作流">一条可落地的工作流</a>
+      <ul>
+        <li><a href="#第一步准备-neutral-与组件">第一步：准备 neutral 与组件</a></li>
+        <li><a href="#第二步建立-correspondence-或生成表情先验">第二步：建立 correspondence 或生成表情先验</a></li>
+        <li><a href="#第三步得到-b-的候选-smile">第三步：得到 B 的候选 smile</a></li>
+        <li><a href="#第四步用参考图做-personalization">第四步：用参考图做 personalization</a></li>
+        <li><a href="#第五步验证它是不是一个真正可用的-blendshape">第五步：验证它是不是一个真正可用的 blendshape</a></li>
+      </ul>
+    </li>
+    <li><a href="#可以使用哪些开源工具">可以使用哪些开源工具</a>
+      <ul>
+        <li><a href="#nfr为不同-topology-的脸生成迁移初值">NFR：为不同 topology 的脸生成迁移初值</a></li>
+        <li><a href="#emoca--deca从单张图估计表情">EMOCA / DECA：从单张图估计表情</a></li>
+        <li><a href="#ict-facekit标准表情空间与模板">ICT-FaceKit：标准表情空间与模板</a></li>
+        <li><a href="#pytorch3dnvdiffrast-与-redner可微渲染层">PyTorch3D、nvdiffrast 与 redner：可微渲染层</a></li>
+      </ul>
+    </li>
+    <li><a href="#到-2026-年哪一种方案最好">到 2026 年，哪一种方案最好</a></li>
+    <li><a href="#可微渲染不是答案而是一种反馈机制">可微渲染不是答案，而是一种反馈机制</a></li>
+    <li><a href="#最后">最后</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+ 
+<script>
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+</script>
+
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<p>最近读完 <a href="https://dl.acm.org/doi/epdf/10.1145/1015706.1015736"   target="_blank">
+    Deformation Transfer for Triangle Meshes</a>，我自然产生了一个更具体的问题：如果角色 A 已经有一套表情，能不能把它迁移到角色 B，做成 B 的 blendshapes？</p>
+<p>进一步说，假如我有 B 的 neutral mesh，也有一张 B 微笑时的渲染图，却没有 B 的 smile mesh 或表情视频，这张图能不能反过来指导我们做出 B 的 smile blendshape？</p>
+<p>答案是：<strong>可以，但它不是一次简单的“复制顶点”，也不是只靠一张图就能唯一恢复完整的三维表情。</strong> 比较可靠的做法，是先利用 deformation transfer、标准表情模型或神经网络得到一个合理的三维初始值，再用参考图对它进行个性化拟合。可微渲染在这里很有用，但它只是整个流程中的一环。</p>
+
+
+<h2 class="relative group">先说清楚：我们究竟在迁移什么 
+    <div id="%E5%85%88%E8%AF%B4%E6%B8%85%E6%A5%9A%E6%88%91%E4%BB%AC%E7%A9%B6%E7%AB%9F%E5%9C%A8%E8%BF%81%E7%A7%BB%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%85%88%E8%AF%B4%E6%B8%85%E6%A5%9A%E6%88%91%E4%BB%AC%E7%A9%B6%E7%AB%9F%E5%9C%A8%E8%BF%81%E7%A7%BB%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Blendshape 本质上是一组具有相同 topology 和 vertex order 的 mesh。以 neutral mesh 为基准，第 (i) 个表情可以写成一组顶点位移：</p>
+<p>$$
+\Delta V_i = V_i - V_0.
+$$</p>
+<p>运行时将这些位移按权重线性组合：</p>
+<p>$$
+V(w)=V_0+\sum_i w_i\Delta V_i.
+$$</p>
+<p>如果 A 和 B 来自同一个 template family，也就是它们由同一张模板网格生成，拥有相同的 topology、vertex order 和语义布局，那么迁移往往比较直接。MetaHuman 的标准头模、同一套角色生成器导出的不同人物，通常属于这种情况。A 的第 1234 个顶点是左嘴角，B 的第 1234 个顶点仍然是左嘴角；现成工具只需复制或适配 delta，再检查幅度和穿插。</p>
+<p>但如果 A 和 B 是分别建模的两张脸，它们的顶点数量、布线甚至嘴眼结构都不同，顶点编号就没有共同含义。此时首先要解决的不是 smile，而是 <strong>correspondence</strong>：A 表面上的每个位置，在 B 上对应哪里。</p>
+<p>所谓 high-quality dense correspondence，是指这种对应关系覆盖整张连续表面，而不只是鼻尖、眼角、嘴角等几十个 landmarks。Landmark 能把两张脸大致对齐，却不能告诉我们嘴角附近的每个三角形该如何传递拉伸、旋转和挤压。真正用于 deformation transfer 的 correspondence 通常来自 template fitting、non-rigid registration、UV correspondence 或表面映射。</p>
+
+
+<h2 class="relative group">三种难度完全不同的场景 
+    <div id="%E4%B8%89%E7%A7%8D%E9%9A%BE%E5%BA%A6%E5%AE%8C%E5%85%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9C%BA%E6%99%AF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%89%E7%A7%8D%E9%9A%BE%E5%BA%A6%E5%AE%8C%E5%85%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9C%BA%E6%99%AF" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>讨论“blendshape 能不能迁移”时，最好先判断自己属于哪一种情况。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">输入情况</th>
+          <th style="text-align: right">自动化程度</th>
+          <th style="text-align: left">主要问题</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">A、B 具有相同 topology 和 vertex order</td>
+          <td style="text-align: right">很高</td>
+          <td style="text-align: left">表情强度、局部穿插和角色风格</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">A、B 属于同一 template family</td>
+          <td style="text-align: right">较高</td>
+          <td style="text-align: left">拟合质量与极端表情修正</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">A、B topology 不同</td>
+          <td style="text-align: right">中等</td>
+          <td style="text-align: left">dense correspondence 与形变重建</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">只有 B neutral 和一张 B 表情图</td>
+          <td style="text-align: right">有条件可做</td>
+          <td style="text-align: left">单视图歧义、相机、光照和表情先验</td>
+      </tr>
+  </tbody>
+</table>
+<p>这里的“同一 template family”并不要求两张脸长得相似，而是说它们共享同一个底层网格定义。例如先把一张标准头模 non-rigidly fit 到不同扫描数据，再始终保留模板的面连接和顶点编号，得到的所有人物仍属于同一 family。工业工具链偏爱这种资产，因为 correspondence 在建模阶段就已经解决了。</p>
+
+
+<h2 class="relative group">单张 smile 渲染图能告诉我们什么 
+    <div id="%E5%8D%95%E5%BC%A0-smile-%E6%B8%B2%E6%9F%93%E5%9B%BE%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8D%95%E5%BC%A0-smile-%E6%B8%B2%E6%9F%93%E5%9B%BE%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>现在考虑我的实际输入：</p>
+<ul>
+<li>A 的 neutral mesh 和一个或多个 blendshapes；</li>
+<li>B 的 neutral mesh；</li>
+<li>一张 B 的 smile 渲染图；</li>
+<li>没有 B 的 smile mesh，也没有表情视频。</li>
+</ul>
+<p>我们可以寻找一个 B 的三维表情，使它从指定相机渲染出来以后尽量接近参考图。这属于 <strong>single-view inverse rendering</strong>，也可以更朴素地称为 image-guided blendshape fitting。</p>
+<p>如果候选表情由若干 blendshape 控制，可以写成：</p>
+<p>$$
+V_B(w)=V_B^0+\sum_i w_i\Delta V_{B,i}.
+$$</p>
+<p>将它送入 renderer 得到图像 (R(V_B(w),c,l,m))，其中 (c)、(l)、(m) 分别表示 camera、lighting 和 material。接下来调整 (w)，使渲染结果接近参考图 (I^*)：</p>
+<p>$$
+\mathcal L =
+\lambda_{lm}L_{landmark}
++\lambda_{sil}L_{silhouette}
++\lambda_{rgb}L_{photometric}
++\lambda_{perc}L_{perceptual}
++\lambda_{reg}L_{regularization}.
+$$</p>
+<p>因为参考图本身就是渲染图，这件事可能比拟合真实照片更容易。若能拿到原始 camera、projection、lighting 和 material，便可以固定这些变量，把优化重点放在表情上，减少“为了补偿错误光照而扭曲几何”的情况。</p>
+<p>但单张图仍然存在根本性的歧义：正面图无法准确告诉我们嘴角沿深度方向移动了多少，也看不到脸侧和被遮挡的嘴唇，更不能唯一确定牙齿、舌头和口腔内部。很多不同的三维形状都可能产生相似的二维投影。</p>
+<p>因此，一张图更适合得到一个 <strong>image-matched smile candidate</strong>：它从目标视角看起来正确，但仍需从侧面检查，才能判断是不是合格的 production blendshape。</p>
+
+
+<h2 class="relative group">为什么不能直接优化所有顶点 
+    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E4%BC%98%E5%8C%96%E6%89%80%E6%9C%89%E9%A1%B6%E7%82%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E4%BC%98%E5%8C%96%E6%89%80%E6%9C%89%E9%A1%B6%E7%82%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>一个看似直接的方法，是把 B 的每个顶点都设为可优化参数，然后最小化图像误差。这样自由度很高，却很容易得到错误答案：优化器只关心当前视角的像素，不在乎不可见区域是否塌陷，也不懂嘴唇应该接触、脸颊应该保持体积。</p>
+<p>更稳妥的顺序是：</p>
+<ol>
+<li>先优化 camera，使 neutral 或已知 landmarks 对齐。</li>
+<li>只优化 <code>mouthSmile_L/R</code>、<code>cheekRaise_L/R</code>、<code>jawOpen</code>、<code>lipPress</code> 等低维参数。</li>
+<li>先使用 landmarks 和 silhouette，稳定后再加入 photometric 或 perceptual loss。</li>
+<li>若现有表情空间无法匹配参考图，再允许嘴角、嘴唇和面颊产生小幅 residual deformation。</li>
+<li>对 residual 加入 Laplacian、ARAP、deformation gradient、symmetry 和幅度约束。</li>
+<li>检查侧面、四分之三视角，以及 smile 与 blink、jawOpen 等表情的组合。</li>
+<li>为穿插、闭嘴和极端组合制作 corrective blendshapes。</li>
+</ol>
+<p>换句话说，<strong>先让模型在“像一张脸”的空间中寻找答案，再给它少量局部修正能力</strong>。这比一开始就放开几万个顶点稳定得多。</p>
+
+
+<h2 class="relative group">一条可落地的工作流 
+    <div id="%E4%B8%80%E6%9D%A1%E5%8F%AF%E8%90%BD%E5%9C%B0%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%80%E6%9D%A1%E5%8F%AF%E8%90%BD%E5%9C%B0%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">第一步：准备 neutral 与组件 
+    <div id="%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%87%86%E5%A4%87-neutral-%E4%B8%8E%E7%BB%84%E4%BB%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%87%86%E5%A4%87-neutral-%E4%B8%8E%E7%BB%84%E4%BB%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>统一 A、B 的头部朝向、尺度和坐标系。Neutral 不只是“没有笑”，还应尽量统一 jaw、eyeball 和眼睑状态。牙齿、眼球、舌头通常应该作为刚体、骨骼或独立组件处理，而不是随面部表面一起做自由形变。</p>
+
+
+<h3 class="relative group">第二步：建立 correspondence 或生成表情先验 
+    <div id="%E7%AC%AC%E4%BA%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B-correspondence-%E6%88%96%E7%94%9F%E6%88%90%E8%A1%A8%E6%83%85%E5%85%88%E9%AA%8C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B-correspondence-%E6%88%96%E7%94%9F%E6%88%90%E8%A1%A8%E6%83%85%E5%85%88%E9%AA%8C" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>如果 topology 相同，可以直接传递或编辑 blendshape delta。如果 topology 不同，则有几条路：</p>
+<ul>
+<li>将同一标准 template non-rigidly fit 到 A、B；</li>
+<li>建立 dense surface correspondence，再使用经典 deformation transfer；</li>
+<li>使用 topology-agnostic 的神经表情迁移方法；</li>
+<li>先把标准 FACS/ARKit-like 表情空间迁移到 B。</li>
+</ul>
+<p>Landmarks 主要用于初始化和约束 registration，不能单独替代 dense correspondence。</p>
+
+
+<h3 class="relative group">第三步：得到 B 的候选 smile 
+    <div id="%E7%AC%AC%E4%B8%89%E6%AD%A5%E5%BE%97%E5%88%B0-b-%E7%9A%84%E5%80%99%E9%80%89-smile" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%E5%BE%97%E5%88%B0-b-%E7%9A%84%E5%80%99%E9%80%89-smile" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>把 A smile 的局部 deformation gradient 迁移到 B，或者用神经模型直接进行 expression retargeting。这个候选结果不必与参考图完全一致，它的重要作用是提供合理的三维结构：哪里应当抬起、哪里应当压缩、哪些区域应该基本不动。</p>
+
+
+<h3 class="relative group">第四步：用参考图做 personalization 
+    <div id="%E7%AC%AC%E5%9B%9B%E6%AD%A5%E7%94%A8%E5%8F%82%E8%80%83%E5%9B%BE%E5%81%9A-personalization" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%E7%94%A8%E5%8F%82%E8%80%83%E5%9B%BE%E5%81%9A-personalization" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>固定或估计 camera，通过 differentiable renderer 比较当前渲染与 B smile 图。先调 blendshape coefficients 和 jaw，再决定是否增加局部 residual：</p>
+<p>$$
+V_B(w,\delta V)=V_B^0+\sum_iw_i\Delta V_{B,i}+\delta V.
+$$</p>
+<p>这里的 (\delta V) 应限制在有需要的 facial region，并受到强正则约束。它的职责是修正 B 特有的嘴角弧度、脸颊体积和唇形，而不是重新发明整张脸。</p>
+
+
+<h3 class="relative group">第五步：验证它是不是一个真正可用的 blendshape 
+    <div id="%E7%AC%AC%E4%BA%94%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%AE%83%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E5%8F%AF%E7%94%A8%E7%9A%84-blendshape" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%AE%83%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E5%8F%AF%E7%94%A8%E7%9A%84-blendshape" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>“参考图匹配得很好”不是验收终点。至少还需要检查：</p>
+<ul>
+<li>从正面、侧面和四分之三视角看是否自然；</li>
+<li>左右拆分后是否仍然平滑；</li>
+<li>嘴唇是否穿插，闭嘴时能否保持 contact；</li>
+<li>与 jawOpen、blink、funnel 等 shape 组合时是否崩坏；</li>
+<li>同一个 coefficient 在 B 上是否过强或过弱；</li>
+<li>是否破坏法线、UV、牙齿和眼球的位置关系。</li>
+</ul>
+<p>同样的数值不一定代表同样的表情强度。不同人物的嘴宽、唇厚和面颊体积不同，最终通常还要重新校准控制曲线。</p>
+
+
+<h2 class="relative group">可以使用哪些开源工具 
+    <div id="%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%93%AA%E4%BA%9B%E5%BC%80%E6%BA%90%E5%B7%A5%E5%85%B7" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%93%AA%E4%BA%9B%E5%BC%80%E6%BA%90%E5%B7%A5%E5%85%B7" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+
+
+<h3 class="relative group">NFR：为不同 topology 的脸生成迁移初值 
+    <div id="nfr%E4%B8%BA%E4%B8%8D%E5%90%8C-topology-%E7%9A%84%E8%84%B8%E7%94%9F%E6%88%90%E8%BF%81%E7%A7%BB%E5%88%9D%E5%80%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#nfr%E4%B8%BA%E4%B8%8D%E5%90%8C-topology-%E7%9A%84%E8%84%B8%E7%94%9F%E6%88%90%E8%BF%81%E7%A7%BB%E5%88%9D%E5%80%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><a href="https://github.com/dafei-qin/NFR_pytorch"   target="_blank">
+    Neural Face Rigging（NFR）</a> 是 SIGGRAPH 2023 的研究工作，目标正是为不同 connectivity 的 facial meshes 提供可解释的 FACS-like 控制并进行 expression retargeting；<a href="https://dafei-qin.github.io/NFR/"   target="_blank">
+    项目页面</a>展示了在不同拓扑和身份之间迁移动画的结果。</p>
+<p>它很适合承担“为 B 生成合理候选表情”这一步，但不能仅凭一张 B smile 图自动保证角色相似度。更合理的组合是：<strong>NFR 负责三维先验，可微渲染负责针对 B 的参考图做 refinement</strong>。</p>
+<p>需要注意，NFR 是 research code，对运行环境和输入 mesh 有要求，并不是开箱即用的 DCC 插件。真正接入制作流程前，仍需处理网格预处理、眼嘴组件和 corrective。</p>
+
+
+<h3 class="relative group">EMOCA / DECA：从单张图估计表情 
+    <div id="emoca--deca%E4%BB%8E%E5%8D%95%E5%BC%A0%E5%9B%BE%E4%BC%B0%E8%AE%A1%E8%A1%A8%E6%83%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#emoca--deca%E4%BB%8E%E5%8D%95%E5%BC%A0%E5%9B%BE%E4%BC%B0%E8%AE%A1%E8%A1%A8%E6%83%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><a href="https://github.com/PhoenixDigitalFX/Emoca"   target="_blank">
+    EMOCA</a> 可以从单张人脸图像重建带表情的三维脸，它建立在 DECA 与 FLAME 参数模型之上。它适合从 B smile 图中估计“笑了多少、是否张嘴”等低维 expression parameters，但输出位于 FLAME 空间，不会直接变成任意 topology 的 B blendshape。</p>
+<p>因此还需要 FLAME 到 B 的 registration 或 deformation transfer。这条路线更适合比例接近真实人类的角色；面对高度卡通化的眼睛和嘴巴，人工 landmarks 加自定义表情基往往更可靠。此外，EMOCA 的代码和模型许可偏向非商业科研用途，使用前应单独确认资产和模型许可。</p>
+
+
+<h3 class="relative group">ICT-FaceKit：标准表情空间与模板 
+    <div id="ict-facekit%E6%A0%87%E5%87%86%E8%A1%A8%E6%83%85%E7%A9%BA%E9%97%B4%E4%B8%8E%E6%A8%A1%E6%9D%BF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ict-facekit%E6%A0%87%E5%87%86%E8%A1%A8%E6%83%85%E7%A9%BA%E9%97%B4%E4%B8%8E%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><a href="https://github.com/USC-ICT/ICT-FaceKit"   target="_blank">
+    ICT-FaceKit</a> 提供 common topology、facial landmarks、identity model 和一组表情 blendshapes，可作为标准表情空间或 registration template。它本身不会自动完成任意角色的高质量迁移，但很适合用来补齐 <code>mouthSmile_L/R</code>、<code>cheekRaise</code> 等可解释的基础控制。</p>
+
+
+<h3 class="relative group">PyTorch3D、nvdiffrast 与 redner：可微渲染层 
+    <div id="pytorch3dnvdiffrast-%E4%B8%8E-redner%E5%8F%AF%E5%BE%AE%E6%B8%B2%E6%9F%93%E5%B1%82" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#pytorch3dnvdiffrast-%E4%B8%8E-redner%E5%8F%AF%E5%BE%AE%E6%B8%B2%E6%9F%93%E5%B1%82" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li><a href="https://pytorch3d.org/"   target="_blank">
+    PyTorch3D</a> 的接口比较完整，适合快速搭建实验；</li>
+<li><a href="https://nvlabs.github.io/nvdiffrast/"   target="_blank">
+    nvdiffrast</a> 更底层，速度和控制能力很好，适合已有自定义渲染管线的项目；</li>
+<li><a href="https://github.com/BachiLi/redner"   target="_blank">
+    redner</a> 能处理更完整的物理渲染与场景参数，但只拟合面部轮廓和表情时往往更重。</li>
+</ul>
+<p>这些 renderer 只负责把图像误差的梯度传回几何、相机或材质参数。它们不会自动提供 correspondence、表情语义、嘴唇接触或合理的人脸先验。</p>
+
+
+<h2 class="relative group">到 2026 年，哪一种方案最好 
+    <div id="%E5%88%B0-2026-%E5%B9%B4%E5%93%AA%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88%E6%9C%80%E5%A5%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%88%B0-2026-%E5%B9%B4%E5%93%AA%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88%E6%9C%80%E5%A5%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>“最好”取决于输入，而不是某一个模型在论文表格里的排名。</p>
+<p>如果 A、B topology 相同，直接迁移 delta 并由艺术家修正，通常仍然是成本最低、结果最可控的方案。没必要为了使用 AI 而绕远路。</p>
+<p>如果 topology 不同，但已有 A 的高质量表情，比较实际的路线是：</p>
+<blockquote>
+<p>NFR 或经典 deformation transfer 生成 B 的候选表情，再利用 B 的渲染参考图进行 differentiable refinement，最后制作少量 corrective。</p>
+</blockquote>
+<p>如果只有 B 的 neutral mesh 与写实人脸图像，可以用 EMOCA/DECA 提取 FLAME expression，再将标准参数空间 retarget 到 B。但它更像“表情捕捉 + 参数模型拟合”，不是直接解决任意角色的 blendshape 制作。</p>
+<p>研究前沿已经开始尝试从任意 neutral facial mesh 自动生成整套 rig。NeurIPS 2025 的 <a href="https://papers.neurips.cc/paper_files/paper/2025/hash/420678bb4c8251ab30e765bc27c3b047-Abstract-Conference.html"   target="_blank">
+    RigAnyFace</a> 面向 diverse topology 和 disconnected components，由 neutral mesh 生成 industry-standard FACS poses。它代表了方向正在从“迁移一个形变”走向“自动产生完整、可控的 facial rig”。不过论文也明确涉及大量专业 rig 数据和二维监督；截至本文写作时，它更适合被视为研究前沿，而不是已经成熟的一键开源制作工具。</p>
+<p>所以，对于“B neutral + 一张 B smile 渲染图”这个具体问题，我目前更信任混合式流程，而不是端到端黑盒：</p>
+<ol>
+<li>用已有 rig、deformation transfer 或 NFR 获得三维先验；</li>
+<li>用 landmarks 和 silhouette 完成可靠对齐；</li>
+<li>优化低维 expression coefficients；</li>
+<li>再用 photometric/perceptual loss 修正角色特征；</li>
+<li>只在必要区域开放受约束的 residual deformation；</li>
+<li>由艺术家完成多视角检查和 corrective。</li>
+</ol>
+
+
+<h2 class="relative group">可微渲染不是答案，而是一种反馈机制 
+    <div id="%E5%8F%AF%E5%BE%AE%E6%B8%B2%E6%9F%93%E4%B8%8D%E6%98%AF%E7%AD%94%E6%A1%88%E8%80%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E5%8F%8D%E9%A6%88%E6%9C%BA%E5%88%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%AF%E5%BE%AE%E6%B8%B2%E6%9F%93%E4%B8%8D%E6%98%AF%E7%AD%94%E6%A1%88%E8%80%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E5%8F%8D%E9%A6%88%E6%9C%BA%E5%88%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>回到最初的问题：这一套流程是不是可微渲染？</p>
+<p>准确地说，<strong>只有“渲染候选表情、与参考图比较、把误差传回参数”这一段属于 differentiable rendering</strong>。前面的 correspondence、deformation representation 和 retargeting，后面的 contact、corrective 与 control calibration，都有各自的问题和方法。</p>
+<p>经典 deformation transfer 回答的是：A 的局部形变怎样合理地出现在 B 上？</p>
+<p>可微渲染回答的是：当前的 B 从这个相机看，与参考图还差多少，应该怎样调整参数？</p>
+<p>人脸先验和正则项回答的是：在看不见或无法确定的地方，怎样避免得到虽然匹配像素、三维结构却很荒谬的答案？</p>
+<p>把这三者合在一起，才是一条完整的 image-guided blendshape transfer pipeline。</p>
+
+
+<h2 class="relative group">最后 
+    <div id="%E6%9C%80%E5%90%8E" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%9C%80%E5%90%8E" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Blendshape 迁移并不是已经彻底解决的问题。相同 topology 的资产之间，工具链确实已经很成熟；但面对不同 topology、角色风格、口腔结构和单视图参考时，correspondence、三维歧义以及制作质量仍然存在。</p>
+<p>另一方面，也不必因为只有一张 smile 渲染图就认为无从下手。这张图无法替代真实的三维 ground truth，却能很好地完成 personalization：先把 A 的表情经验带到 B，再让参考图告诉优化器“这个人物应该怎样笑”。</p>
+<p>我觉得这也是 deformation transfer 这条研究线到今天仍然有价值的地方。问题的重点已经不再只是把一张 mesh 变成另一张 mesh，而是怎样把可复用的几何先验、可解释的控制空间和二维观察结合起来，得到真正属于目标角色的表情系统。</p>
+
+
+<h2 class="relative group">参考资料 
+    <div id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>Robert W. Sumner, Jovan Popović. <a href="https://dl.acm.org/doi/epdf/10.1145/1015706.1015736"   target="_blank">
+    Deformation Transfer for Triangle Meshes</a>. SIGGRAPH / ACM Transactions on Graphics, 2004.</li>
+<li>Dafei Qin et al. <a href="https://dafei-qin.github.io/NFR/"   target="_blank">
+    Neural Face Rigging for Animating and Retargeting Facial Meshes in the Wild</a>. SIGGRAPH, 2023.</li>
+<li>Radek Daněček, Michael J. Black, Timo Bolkart. <a href="https://openaccess.thecvf.com/content/CVPR2022/html/Danecek_EMOCA_Emotion_Driven_Monocular_Face_Capture_and_Animation_CVPR_2022_paper.html"   target="_blank">
+    EMOCA: Emotion Driven Monocular Face Capture and Animation</a>. CVPR, 2022.</li>
+<li><a href="https://github.com/USC-ICT/ICT-FaceKit"   target="_blank">
+    ICT-FaceKit</a>, USC Institute for Creative Technologies.</li>
+<li>Wenchao Ma et al. <a href="https://papers.neurips.cc/paper_files/paper/2025/hash/420678bb4c8251ab30e765bc27c3b047-Abstract-Conference.html"   target="_blank">
+    RigAnyFace: Scaling Neural Facial Mesh Auto-Rigging with Unlabeled Data</a>. NeurIPS, 2025.</li>
+</ul>
+
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/tech/deformation-transfer-for-triangle-meshes/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/deformation-transfer-for-triangle-meshes/feature_hu2377587173562939513.webp);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/deformation-transfer-for-triangle-meshes/">论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-09-07 23:00:00 &#43;0800 &#43;0800">2026-09-07</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-09-08 10:00:00 &#43;0800 &#43;0800">更新于: 2026-09-08</time><span class="px-2 text-primary-500">&middot;</span><span>10099 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">21 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Deformation Transfer for Triangle Meshes 论文精读/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    计算机图形学
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E5%87%A0%E4%BD%95%E5%A4%84%E7%90%86/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    几何处理
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E7%BD%91%E6%A0%BC%E5%8F%98%E5%BD%A2/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    网格变形
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    论文精读
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/feature_hu3792213073171399374.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/">Github 邮箱更改之后</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-29 17:20:56 &#43;0800 &#43;0800">2024-06-29</time><span class="px-2 text-primary-500">&middot;</span><span>1348 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Github 邮箱更改之后/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/feature_hu1512955500307278229.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/">关于 Contribution 的那些事</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-25 23:59:56 &#43;0800 &#43;0800">2024-06-25</time><span class="px-2 text-primary-500">&middot;</span><span>4023 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/关于 Contribution 的那些事/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E5%BC%80%E6%BA%90/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    开源
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/feature_hu8918995235412570169.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/">Github Action + 基于 Github Page Blog 自动发布</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-15 16:04:46 &#43;0800 &#43;0800">2024-06-15</time><span class="px-2 text-primary-500">&middot;</span><span>2114 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Github Action &#43; 基于 Github Page Blog 自动发布/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github-action/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github Action
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/weekly/2026/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/sea_hu10102662882192776634.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/weekly/2026/">2026 年周记</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-01-01 00:00:00 &#43;0000 UTC">2026-01-01</time><span class="px-2 text-primary-500">&middot;</span><span>263 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          2026 年的生活、记录与思考。
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_tech\/从一张表情图到目标角色：Blendshape 迁移的思路与工具\/index.md"
+        var oid_likes = "likes_tech\/从一张表情图到目标角色：Blendshape 迁移的思路与工具\/index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/tech/deformation-transfer-for-triangle-meshes/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-09-07 23:00:00 &#43;0800 &#43;0800">2026-09-07</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2026
+      White Liu
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+  <a rel="me" href="https://masto.ai/@blowfish"></a>
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://lcenarthas.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
