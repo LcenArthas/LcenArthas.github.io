@@ -7,7 +7,57 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2026 White Liu</copyright>
-    <lastBuildDate>Sun, 21 Jul 2024 16:40:02 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Sep 2026 23:00:00 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>几何处理</title>
+      <link>https://lcenarthas.github.io/tags/%E5%87%A0%E4%BD%95%E5%A4%84%E7%90%86/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/%E5%87%A0%E4%BD%95%E5%A4%84%E7%90%86/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>计算机图形学</title>
+      <link>https://lcenarthas.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>技术</title>
+      <link>https://lcenarthas.github.io/tags/%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>论文精读</title>
+      <link>https://lcenarthas.github.io/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>网格变形</title>
+      <link>https://lcenarthas.github.io/tags/%E7%BD%91%E6%A0%BC%E5%8F%98%E5%BD%A2/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tags/%E7%BD%91%E6%A0%BC%E5%8F%98%E5%BD%A2/</guid>
+      <description></description>
+      
+    </item>
+    
     <item>
       <title>Python</title>
       <link>https://lcenarthas.github.io/tags/python/</link>
@@ -44,16 +94,6 @@
       <pubDate>Sat, 29 Jun 2024 17:20:56 +0800</pubDate>
       
       <guid>https://lcenarthas.github.io/tags/github/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>技术</title>
-      <link>https://lcenarthas.github.io/tags/%E6%8A%80%E6%9C%AF/</link>
-      <pubDate>Sat, 29 Jun 2024 17:20:56 +0800</pubDate>
-      
-      <guid>https://lcenarthas.github.io/tags/%E6%8A%80%E6%9C%AF/</guid>
       <description></description>
       
     </item>

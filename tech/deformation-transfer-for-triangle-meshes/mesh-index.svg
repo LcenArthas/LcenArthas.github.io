@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" height="330" role="img" aria-labelledby="mesh-title mesh-desc">
+            <title id="mesh-title">顶点数组与三角形索引示意图</title>
+            <desc id="mesh-desc">四个顶点组成两个共享边的三角形，右侧显示对应的顶点坐标数组与三角形索引数组。</desc>
+            <style>
+              text { fill: #17212b; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 15px; }
+              .small { fill: #586675; font-size: 13px; }
+              .face-a { fill: #cde4f8; stroke: #0b5cad; stroke-width: 2; }
+              .face-b { fill: #d9f0e7; stroke: #10785c; stroke-width: 2; }
+            </style>
+            <polygon class="face-a" points="80,255 285,255 285,55"></polygon>
+            <polygon class="face-b" points="80,255 285,55 80,55"></polygon>
+            <circle cx="80" cy="255" r="6" fill="#17212b"></circle>
+            <circle cx="285" cy="255" r="6" fill="#17212b"></circle>
+            <circle cx="285" cy="55" r="6" fill="#17212b"></circle>
+            <circle cx="80" cy="55" r="6" fill="#17212b"></circle>
+            <text x="50" y="280">V0</text>
+            <text x="294" y="280">V1</text>
+            <text x="294" y="50">V2</text>
+            <text x="50" y="50">V3</text>
+            <text x="185" y="200" text-anchor="middle">F0 = [0, 1, 2]</text>
+            <text x="180" y="115" text-anchor="middle">F1 = [0, 2, 3]</text>
+            <line x1="350" y1="40" x2="350" y2="285" stroke="#ccd5de" stroke-width="2"></line>
+            <text x="385" y="72" font-weight="700">vertices</text>
+            <text x="385" y="104" class="small">V0 = [x0, y0, z0]</text>
+            <text x="385" y="132" class="small">V1 = [x1, y1, z1]</text>
+            <text x="385" y="160" class="small">V2 = [x2, y2, z2]</text>
+            <text x="385" y="188" class="small">V3 = [x3, y3, z3]</text>
+            <text x="585" y="72" font-weight="700">faces</text>
+            <text x="585" y="104" class="small">F0 = [0, 1, 2]</text>
+            <text x="585" y="132" class="small">F1 = [0, 2, 3]</text>
+            <text x="385" y="248">坐标会变</text>
+            <text x="585" y="248">索引不变</text>
+          </svg>

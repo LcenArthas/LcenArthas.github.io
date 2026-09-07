@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" width="760" height="350" role="img" aria-labelledby="shared-title shared-desc">
+            <title id="shared-title">独立三角形与共享顶点求解的区别</title>
+            <desc id="shared-desc">左侧独立变换时公共边出现两组候选位置，右侧共用同一个顶点变量后网格保持连续。</desc>
+            <style>
+              text { fill: #17212b; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 15px; }
+              .small { fill: #586675; font-size: 13px; }
+              .face-a { fill: #cde4f8; stroke: #0b5cad; stroke-width: 2; }
+              .face-b { fill: #d9f0e7; stroke: #10785c; stroke-width: 2; }
+            </style>
+            <text x="180" y="35" text-anchor="middle" font-weight="700">逐三角形独立处理</text>
+            <polygon class="face-a" points="60,280 275,250 240,75"></polygon>
+            <polygon class="face-b" points="82,300 222,95 55,90"></polygon>
+            <line x1="60" y1="280" x2="240" y2="75" stroke="#0b5cad" stroke-width="4"></line>
+            <line x1="82" y1="300" x2="222" y2="95" stroke="#10785c" stroke-width="4"></line>
+            <line x1="60" y1="280" x2="82" y2="300" stroke="#a12a2a" stroke-width="2" stroke-dasharray="5 4"></line>
+            <line x1="240" y1="75" x2="222" y2="95" stroke="#a12a2a" stroke-width="2" stroke-dasharray="5 4"></line>
+            <text x="180" y="326" text-anchor="middle" class="small">同一个公共顶点得到两套位置：产生裂缝</text>
+            <line x1="355" y1="50" x2="355" y2="315" stroke="#ccd5de" stroke-width="2"></line>
+            <text x="570" y="35" text-anchor="middle" font-weight="700">以共享顶点为未知量</text>
+            <polygon class="face-a" points="440,285 690,245 625,65"></polygon>
+            <polygon class="face-b" points="440,285 625,65 420,80"></polygon>
+            <line x1="440" y1="285" x2="625" y2="65" stroke="#17212b" stroke-width="5"></line>
+            <circle cx="440" cy="285" r="7" fill="#17212b"></circle>
+            <circle cx="625" cy="65" r="7" fill="#17212b"></circle>
+            <text x="570" y="326" text-anchor="middle" class="small">公共边只有一组端点变量：连续性自动满足</text>
+          </svg>

@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移 &middot; 上善若水</title>
+  <meta name="title" content="论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移 &middot; 上善若水" />
+  
+  <meta name="description" content="Deformation Transfer for Triangle Meshes 论文精读：从三角形的局部仿射变换出发，推导网格形变迁移、稀疏最小二乘与对应关系的构造。" />
+  <meta name="keywords" content="技术, 计算机图形学, 几何处理, 网格变形, 论文精读, " />
+  
+  
+  <link rel="canonical" href="https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.65a921367f9d3867fdeb092055c3411a28bd9a2245f22e77e199e7d084c43ebca67b4cf12a20ee8a0f4ce34439bd9f89539573b82ad04ab3478f8d548a158065.css"
+    integrity="sha512-ZakhNn&#43;dOGf96wkgVcNBGii9miJF8i534Znn0ITEPryme0zxKiDuig9M40Q5vZ&#43;JU5VzuCrQSrNHj41UihWAZQ==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.d6c35110b5d7df8014403fbb81cd21a9d89daf9eb586c936e585e9d04adc204dce554aa737f81e8c902b9dea9e67bd63a977b77dedefb8a39430581ebc519207.js"
+    integrity="sha512-1sNRELXX34AUQD&#43;7gc0hqdidr561hsk25YXp0ErcIE3OVUqnN/gejJArneqeZ71jqXe3fe3vuKOUMFgevFGSBw==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/">
+  <meta property="og:site_name" content="上善若水">
+  <meta property="og:title" content="论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移">
+  <meta property="og:description" content="Deformation Transfer for Triangle Meshes 论文精读：从三角形的局部仿射变换出发，推导网格形变迁移、稀疏最小二乘与对应关系的构造。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2026-09-07T23:00:00+08:00">
+    <meta property="article:modified_time" content="2026-09-07T23:00:00+08:00">
+    <meta property="article:tag" content="技术">
+    <meta property="article:tag" content="计算机图形学">
+    <meta property="article:tag" content="几何处理">
+    <meta property="article:tag" content="网格变形">
+    <meta property="article:tag" content="论文精读">
+    <meta property="og:image" content="https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/feature.webp">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/feature.webp">
+  <meta name="twitter:title" content="论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移">
+  <meta name="twitter:description" content="Deformation Transfer for Triangle Meshes 论文精读：从三角形的局部仿射变换出发，推导网格形变迁移、稀疏最小二乘与对应关系的构造。">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "技术",
+    "name": "论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移",
+    "headline": "论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移",
+    "description": "Deformation Transfer for Triangle Meshes 论文精读：从三角形的局部仿射变换出发，推导网格形变迁移、稀疏最小二乘与对应关系的构造。",
+    
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/lcenarthas.github.io\/tech\/deformation-transfer-for-triangle-meshes\/",
+    "author" : {
+      "@type": "Person",
+      "name": "White Liu"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-09-07T23:00:00\u002b08:00",
+    "datePublished": "2026-09-07T23:00:00\u002b08:00",
+    
+    "dateModified": "2026-09-07T23:00:00\u002b08:00",
+    
+    "keywords": ["技术","计算机图形学","几何处理","网格变形","论文精读"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5482"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="White Liu" />
+  
+  
+  
+  <link href="https://x.com/shouwangzhelcen" rel="me" />
+  
+  
+  <link href="https://github.com/LcenArthas" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/lib/katex/katex.min.af6f85907cdfd6ed3e4906d93a8233d91c5638859f744cd1b98c9b1a3ccaab5f231bdcda49f132f6cdfe8cca86ff33ed468affab8a9a502610a664a34f0f0cfa.css" integrity="sha512-r2&#43;FkHzf1u0&#43;SQbZOoIz2RxWOIWfdEzRuYybGjzKq18jG9zaSfEy9s3&#43;jMqG/zPtRor/q4qaUCYQpmSjTw8M&#43;g==" />
+
+
+<script defer src="/lib/katex/katex.min.20da6cf7343619410c0900fbc626506c65159ea9f312f9729d5cba7aa713707378f9a4222e8f7fb9a42a7240e9749f199b7334401b3e3e4b60e29cf490492552.js" integrity="sha512-INps9zQ2GUEMCQD7xiZQbGUVnqnzEvlynVy6eqcTcHN4&#43;aQiLo9/uaQqckDpdJ8Zm3M0QBs&#43;Pktg4pz0kEklUg=="></script>
+
+
+<script defer src="/lib/katex/auto-render.min.6095714e3aadb63b14ddc4af69346ab12974c1b460654345f8d1860a0b68fcc51b22f68b757433193090bb80afc8965b65cb607e5541d0f5f0f4b2e64d69b9ff.js" integrity="sha512-YJVxTjqttjsU3cSvaTRqsSl0wbRgZUNF&#43;NGGCgto/MUbIvaLdXQzGTCQu4CvyJZbZctgflVB0PXw9LLmTWm5/w=="
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-141Z1N2SC7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-141Z1N2SC7');
+</script>
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+  
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script>
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBiDcuDTo1WuOz0CZ8otVxG5MzNw9c0UaU",
+      authDomain: "AIzaSyBiDcuDTo1WuOz0CZ8otVxG5MzNw9c0UaU",
+      projectId: "white-blog",
+      storageBucket: "white-blog.appspot.com",
+      messagingSenderId: "307372550909",
+      appId: "1:307372550909:web:35143c5e7ad20e67cf2c94",
+      measurementId: "G-141Z1N2SC7"
+    };
+
+    var app = firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+    var auth = firebase.auth();
+
+  </script>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    
+    
+    <div>
+        <a href="/" class="flex">
+            <span class="sr-only">上善若水</span>
+
+            <img src="/img/icon.png" width="36" height="36"
+                class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="上善若水" />
+
+        </a>
+    </div>
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">上善若水</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/tech/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        技术
+    </p>
+</a>
+
+
+            
+            
+  <a href="/reading-movie/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        读书&amp;电影
+    </p>
+</a>
+
+
+            
+            
+  <a href="/weekly/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        周记
+    </p>
+</a>
+
+
+            
+            
+  <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        关于
+    </p>
+</a>
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/tech/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            技术
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/reading-movie/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            读书&amp;电影
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/weekly/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            周记
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            关于
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/tech/"
+      >技术</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/tech/deformation-transfer-for-triangle-meshes/"
+      >论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-09-07 23:00:00 &#43;0800 &#43;0800">2026-09-07</time><span class="px-2 text-primary-500">&middot;</span><span>5482 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Deformation Transfer for Triangle Meshes 论文精读/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.ccc8b2a0c4505216444ca25530c7328aa0bef94f43dabaf3e598e1b4271de9eec76c1cb35917471a4f7ccb8d84051b3acef42baa30724ac3a667fcf1fec4432a.js" integrity="sha512-zMiyoMRQUhZETKJVMMcyiqC&#43;&#43;U9D2rrz5ZjhtCcd6e7HbByzWRdHGk98y42EBRs6zvQrqjBySsOmZ/zx/sRDKg=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    计算机图形学
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E5%87%A0%E4%BD%95%E5%A4%84%E7%90%86/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    几何处理
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E7%BD%91%E6%A0%BC%E5%8F%98%E5%BD%A2/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    网格变形
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    论文精读
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="White Liu" src="/img/crop_hu5738175937673966094.gif" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      White Liu
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">醉后不知天在水，满船清梦压星河</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://x.com/shouwangzhelcen"
+          target="_blank"
+          aria-label="X-Twitter"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/LcenArthas"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open class="toc-right mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题定义">问题定义</a></li>
+    <li><a href="#三角网格与数据结构">三角网格与数据结构</a></li>
+    <li><a href="#用局部仿射变换描述形变">用局部仿射变换描述形变</a>
+      <ul>
+        <li><a href="#为什么需要第四个点">为什么需要第四个点</a></li>
+      </ul>
+    </li>
+    <li><a href="#从局部变换到连续网格">从局部变换到连续网格</a></li>
+    <li><a href="#vertex-formulation">Vertex formulation</a>
+      <ul>
+        <li><a href="#这个问题为什么仍是线性的">这个问题为什么仍是线性的</a></li>
+      </ul>
+    </li>
+    <li><a href="#稀疏最小二乘">稀疏最小二乘</a>
+      <ul>
+        <li><a href="#消除平移自由度">消除平移自由度</a></li>
+        <li><a href="#为什么分解一次就够了">为什么分解一次就够了</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何建立-correspondence">如何建立 correspondence</a>
+      <ul>
+        <li><a href="#registration-energy">Registration energy</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现框架">实现框架</a></li>
+    <li><a href="#实验结果">实验结果</a></li>
+    <li><a href="#局限">局限</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题定义">问题定义</a></li>
+    <li><a href="#三角网格与数据结构">三角网格与数据结构</a></li>
+    <li><a href="#用局部仿射变换描述形变">用局部仿射变换描述形变</a>
+      <ul>
+        <li><a href="#为什么需要第四个点">为什么需要第四个点</a></li>
+      </ul>
+    </li>
+    <li><a href="#从局部变换到连续网格">从局部变换到连续网格</a></li>
+    <li><a href="#vertex-formulation">Vertex formulation</a>
+      <ul>
+        <li><a href="#这个问题为什么仍是线性的">这个问题为什么仍是线性的</a></li>
+      </ul>
+    </li>
+    <li><a href="#稀疏最小二乘">稀疏最小二乘</a>
+      <ul>
+        <li><a href="#消除平移自由度">消除平移自由度</a></li>
+        <li><a href="#为什么分解一次就够了">为什么分解一次就够了</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何建立-correspondence">如何建立 correspondence</a>
+      <ul>
+        <li><a href="#registration-energy">Registration energy</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现框架">实现框架</a></li>
+    <li><a href="#实验结果">实验结果</a></li>
+    <li><a href="#局限">局限</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+ 
+<script>
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+</script>
+
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<p>论文：<a href="https://dl.acm.org/doi/epdf/10.1145/1015706.1015736"   target="_blank">
+    Deformation Transfer for Triangle Meshes</a><br>
+Robert W. Sumner, Jovan Popović, SIGGRAPH 2004（ACM Transactions on Graphics 23(3), 399–405）。</p>
+<p>这篇论文研究的是一个很直观的问题：已经有一匹奔跑的马，怎样让另一只形状和拓扑都不同的骆驼做出相同的动作？</p>
+<p>作者给出的答案不依赖骨骼、蒙皮权重或动画控制器。它只观察变形前后的三角网格，提取每个三角形经历的局部变换，再把这些变换迁移到目标网格上。这样一来，不仅关节运动能够传递，皮肤的拉伸、挤压和褶皱也能保留下来。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/feature_hu11056536276715413531.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/feature_hu2931756922500186980.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/feature_hu10862577925396678191.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/feature_hu6979041062520635647.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/feature_hu2931756922500186980.webp"
+        alt="论文 Figure 1：马的七个姿势被迁移到骆驼"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 1：给定马和骆驼的参考网格，将马的七个变形姿势迁移到骆驼。</em></p>
+
+
+<h2 class="relative group">问题定义 
+    <div id="%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>用一个比例式可以概括 deformation transfer：</p>
+<p>$$
+S_{ref}:S_{def}=T_{ref}:T_{def}.
+$$</p>
+<p>其中：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">符号</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(S_{ref}\)</td>
+          <td style="text-align: left">源参考网格（source reference mesh），例如站立的马</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(S_{def}\)</td>
+          <td style="text-align: left">源变形网格（source deformed mesh），例如奔跑的马</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(T_{ref}\)</td>
+          <td style="text-align: left">目标参考网格（target reference mesh），例如站立的骆驼</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(T_{def}\)</td>
+          <td style="text-align: left">待求的目标变形网格，即奔跑的骆驼</td>
+      </tr>
+  </tbody>
+</table>
+<p>这里迁移的不是“某个顶点移动了多少厘米”，而是表面各个局部区域发生了怎样的旋转、缩放和剪切。绝对位移依赖模型的尺寸和空间位置，不能直接从马复制给骆驼；局部形变则具有更好的可迁移性。</p>
+<p>算法还需要一个 correspondence map \(M\)，描述源三角形与目标三角形之间的对应关系。两个网格不必具有相同的顶点数、三角形数或拓扑，因此 \(M\) 允许一对多和多对一。</p>
+<p>最终输出只有 \(T_{def}\) 的顶点坐标。目标网格的顶点数量、三角形索引和拓扑都不会改变。</p>
+
+
+<h2 class="relative group">三角网格与数据结构 
+    <div id="%E4%B8%89%E8%A7%92%E7%BD%91%E6%A0%BC%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%89%E8%A7%92%E7%BD%91%E6%A0%BC%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>三角网格通常由顶点数组和面索引数组组成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">vertices = [
+</span></span><span class="line"><span class="cl">  [x0, y0, z0],
+</span></span><span class="line"><span class="cl">  [x1, y1, z1],
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl">]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">faces = [
+</span></span><span class="line"><span class="cl">  [0, 1, 2],   // triangle F0 使用 V0、V1、V2
+</span></span><span class="line"><span class="cl">  [0, 2, 3],   // triangle F1 使用 V0、V2、V3
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl">]
+</span></span></code></pre></div><img src="mesh-index.svg" alt="三角形索引示意图" loading="lazy">
+<p><em>相邻三角形通过引用同一个顶点编号保持连接。这个简单的事实，稍后会替我们自动满足网格的连续性约束。</em></p>
+<p>输入数据可以整理成下面几项：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">数据</th>
+          <th style="text-align: left">内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">\(S_{ref}\)</td>
+          <td style="text-align: left">源网格的顶点 \(V_s\) 与面 \(F_s\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(S_{def}\)</td>
+          <td style="text-align: left">变形后的源顶点；与 \(S_{ref}\) 共用 \(F_s\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(T_{ref}\)</td>
+          <td style="text-align: left">目标网格的顶点 \(V_t\) 与面 \(F_t\)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(M\)</td>
+          <td style="text-align: left">\((sourceFaceId,targetFaceId)\) 组成的对应集合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">\(T_{def}\)</td>
+          <td style="text-align: left">待求的目标顶点；继续使用 \(F_t\)</td>
+      </tr>
+  </tbody>
+</table>
+<p>整套方法分为三步：先从 \(S_{ref}\rightarrow S_{def}\) 提取源三角形的局部变换；再通过 \(M\) 把这些变换分配给目标三角形；最后解一个全局最小二乘问题，使所有局部要求在同一张连续网格上尽量成立。</p>
+
+
+<h2 class="relative group">用局部仿射变换描述形变 
+    <div id="%E7%94%A8%E5%B1%80%E9%83%A8%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2%E6%8F%8F%E8%BF%B0%E5%BD%A2%E5%8F%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8%E5%B1%80%E9%83%A8%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2%E6%8F%8F%E8%BF%B0%E5%BD%A2%E5%8F%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>设一个源三角形变形前的顶点为 \(v_1,v_2,v_3\)，变形后为 \(\tilde v_1,\tilde v_2,\tilde v_3\)。我们希望求出它的局部仿射变换（affine transformation）：</p>
+<p>$$
+S_sv_i+d_s=\tilde v_i.
+$$</p>
+<p>\(S_s\) 是 \(3\times3\) 的线性部分，记录旋转、缩放和剪切；\(d_s\) 是平移。</p>
+
+
+<h3 class="relative group">为什么需要第四个点 
+    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%AC%AC%E5%9B%9B%E4%B8%AA%E7%82%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%AC%AC%E5%9B%9B%E4%B8%AA%E7%82%B9" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>三角形的三个顶点共面，只能确定平面内的变化，无法唯一确定法线方向上的变换。论文沿法线添加一个辅助点：</p>
+<p>$$
+v_4=v_1+
+\frac{(v_2-v_1)\times(v_3-v_1)}
+{\sqrt{\left|(v_2-v_1)\times(v_3-v_1)\right|}}.
+\tag{1}
+$$</p>
+<p>这里的分母是叉积长度的平方根，而不是常见的单位法线归一化。这样构造出的第三条轴，其尺度与三角形边长大致相当，三条基向量的量级不会相差过大。</p>
+<img src="local-basis.svg" alt="三角形局部基示意图" loading="lazy">
+<p><em>两条边张成三角形平面，辅助点补上法线方向，从而得到完整的三维局部基。</em></p>
+<p>对四个点写出仿射变换：</p>
+<p>$$
+S_sv_i+d_s=\tilde v_i,\qquad i=1,2,3,4.
+\tag{2}
+$$</p>
+<p>分别用第 2、3、4 个方程减去第 1 个方程，平移项被消去：</p>
+<p>$$
+\begin{aligned}
+S_s(v_2-v_1)&amp;=\tilde v_2-\tilde v_1,\
+S_s(v_3-v_1)&amp;=\tilde v_3-\tilde v_1,\
+S_s(v_4-v_1)&amp;=\tilde v_4-\tilde v_1.
+\end{aligned}
+$$</p>
+<p>将三组向量按列组成局部基矩阵：</p>
+<p>$$
+B_s=[v_2-v_1\quad v_3-v_1\quad v_4-v_1],
+$$</p>
+<p>$$
+\tilde B_s=[\tilde v_2-\tilde v_1\quad
+\tilde v_3-\tilde v_1\quad
+\tilde v_4-\tilde v_1].
+\tag{3}
+$$</p>
+<p>于是有 \(S_sB_s=\tilde B_s\)，进而得到：</p>
+<p>$$
+\boxed{S_s=\tilde B_sB_s^{-1}}.
+\tag{4}
+$$</p>
+<p>可以把 \(B_s^{-1}\) 理解为从原来的局部坐标系退出，再由 \(\tilde B_s\) 进入变形后的局部坐标系。这个矩阵有时也被称作 deformation gradient。完整变换中的平移可以通过</p>
+<p>$$
+d_s=\tilde v_1-S_sv_1
+$$</p>
+<p>恢复，但 deformation transfer 真正需要迁移的是 \(S_s\)，而不是依赖世界坐标的 \(d_s\)。</p>
+
+
+<h2 class="relative group">从局部变换到连续网格 
+    <div id="%E4%BB%8E%E5%B1%80%E9%83%A8%E5%8F%98%E6%8D%A2%E5%88%B0%E8%BF%9E%E7%BB%AD%E7%BD%91%E6%A0%BC" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%8E%E5%B1%80%E9%83%A8%E5%8F%98%E6%8D%A2%E5%88%B0%E8%BF%9E%E7%BB%AD%E7%BD%91%E6%A0%BC" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>对应集合写作：</p>
+<p>$$
+M={(s_1,t_1),(s_2,t_2),\ldots}.
+\tag{5}
+$$</p>
+<p>每个 \((s,t)\) 表示目标三角形 \(t\) 应当模仿源三角形 \(s\) 的局部变换。若一个目标三角形对应多个源三角形，求解器会在这些要求之间寻找最小误差的折中。</p>
+<p>直接把 \(S_s\) 分别应用到目标三角形并不可行。线性部分能确定三角形的朝向和尺度，却不知道它应该位于哪里；如果连源网格的平移也一起复制，又会把源模型的尺寸和世界坐标带进来。两种做法都会让相邻三角形错位甚至裂开。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/figure-2-consistency_hu8948234600912451461.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-2-consistency_hu9800247504847194909.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-2-consistency_hu4646634895316684805.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-2-consistency_hu13170372371264584214.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/figure-2-consistency_hu9800247504847194909.webp"
+        alt="局部变换与全局一致性"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 2。A：只有线性变换时，三角形的位置彼此不协调；B：复制源网格的平移会使网格断裂；C：全局优化得到连续结果。</em></p>
+<p>设目标三角形 \(j\) 和 \(k\) 共享顶点 \(v_i\)，它们对这个顶点的变换结果必须一致：</p>
+<p>$$
+T_jv_i+d_j=T_kv_i+d_k,
+\qquad \forall i,;j,k\in p(v_i).
+\tag{6}
+$$</p>
+<p>因此可以先把问题写成：</p>
+<p>$$
+\begin{aligned}
+\min_{T_t,d_t}\quad&amp;
+\sum_{(s,t)\in M}\left|S_s-T_t\right|_F^2\
+\text{subject to}\quad&amp;
+T_jv_i+d_j=T_kv_i+d_k.
+\end{aligned}
+\tag{7}
+$$</p>
+<p>目标函数比较的是源和目标的线性变换。Frobenius norm \(\|\cdot\|_F\) 等价于把两个 \(3\times3\) 矩阵对应元素的差平方后求和。约束则负责把独立的局部变换重新拼成一张连续表面。</p>
+
+
+<h2 class="relative group">Vertex formulation 
+    <div id="vertex-formulation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#vertex-formulation" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如果直接以每个三角形的 \(T_t,d_t\) 为未知量，还需要显式维护大量连续性约束。论文随后换了一个更适合实现的视角：直接求目标网格变形后的顶点坐标。</p>
+<p>两个相邻三角形引用的是同一个顶点编号，求解向量中自然也只有一份 \(\tilde v_i\)。因此它们不可能给公共顶点算出两个不同的位置，式（6）的连续性条件被网格的数据结构自动满足了。</p>
+<img src="shared-vertices.svg" alt="共享顶点自动保证连续性" loading="lazy">
+<p>对目标三角形 \(t\)，参考姿势下的局部基 \(B_t\) 是已知量。它在变形后的局部变换可写为：</p>
+<p>$$
+T_t=\tilde B_tB_t^{-1},
+\qquad
+\tilde B_t=[\tilde v_2-\tilde v_1\quad
+\tilde v_3-\tilde v_1\quad
+\tilde v_{4,t}-\tilde v_1].
+$$</p>
+<p>将其代回式（7），便得到以顶点位置为未知量的 least-squares problem：</p>
+<p>$$
+\min_{\tilde v_1,\ldots,\tilde v_n}
+\sum_{(s,t)\in M}
+\left|S_s-\tilde B_tB_t^{-1}\right|_F^2.
+\tag{8}
+$$</p>
+
+
+<h3 class="relative group">这个问题为什么仍是线性的 
+    <div id="%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8D%E6%98%AF%E7%BA%BF%E6%80%A7%E7%9A%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8D%E6%98%AF%E7%BA%BF%E6%80%A7%E7%9A%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>\(B_t^{-1}\) 完全由目标参考网格决定，是常量。假设它的第一列为 \([a,d,g]^T\)，那么 \(T_t\) 的第一列为：</p>
+<p>$$
+\begin{aligned}
+&amp;a(\tilde v_2-\tilde v_1)+d(\tilde v_3-\tilde v_1)+g(\tilde v_{4,t}-\tilde v_1)\
+=;&amp;a\tilde v_2+d\tilde v_3+g\tilde v_{4,t}-(a+d+g)\tilde v_1.
+\end{aligned}
+$$</p>
+<p>所有系数都已知，未知顶点之间没有乘法、除法或开方，所以 \(T_t\) 的每个元素都是顶点坐标的线性组合。</p>
+<p>有一点需要特别注意：变形后的辅助点 \(\tilde v_{4,t}\) 不能再通过未知顶点的叉积计算，否则会引入非线性。论文为每个目标三角形增加一个独立的辅助未知点。若目标网格有 \(n\) 个真实顶点和 \(m\) 个三角形，那么每个坐标方向共有 \(n+m\) 个未知数。求解结束后，只保留前 \(n\) 个真实顶点，辅助点全部丢弃。</p>
+
+
+<h2 class="relative group">稀疏最小二乘 
+    <div id="%E7%A8%80%E7%96%8F%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%A8%80%E7%96%8F%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>将所有 correspondence 产生的矩阵元素方程叠起来，可以写成标准形式：</p>
+<p>$$
+\min_{\tilde x}\left|c-A\tilde x\right|_2^2.
+\tag{9}
+$$</p>
+<ul>
+<li>\(\tilde x\)：目标网格的真实顶点和辅助顶点在某一个坐标方向上的未知值；</li>
+<li>\(A\)：由目标参考网格、correspondence 和位置约束决定的系数矩阵；</li>
+<li>\(c\)：按照 correspondence 排列的源局部变换元素；</li>
+<li>\(A\tilde x\)：当前目标顶点产生的局部变换。</li>
+</ul>
+<p>通常无法让所有局部要求同时精确成立，因此求解的是误差平方和最小的结果。对</p>
+<p>$$
+E(\tilde x)=(c-A\tilde x)^T(c-A\tilde x)
+$$</p>
+<p>求导并令梯度为零：</p>
+<p>$$
+\nabla E(\tilde x)=2A^T(A\tilde x-c)=0,
+$$</p>
+<p>得到 normal equations：</p>
+<p>$$
+\boxed{A^TA\tilde x=A^Tc}.
+\tag{10}
+$$</p>
+<p>\(x,y,z\) 三个坐标方向共用同一个 \(A\)，只有右侧向量不同，因此可以独立求解三次。</p>
+<p>矩阵 \(A\) 非常稀疏。一个三角形的局部变换只与它自己的三个真实顶点和一个辅助点有关，不会直接涉及网格另一端的顶点。即使一行有数万列，非零项也只有很少几个。</p>
+
+
+<h3 class="relative group">消除平移自由度 
+    <div id="%E6%B6%88%E9%99%A4%E5%B9%B3%E7%A7%BB%E8%87%AA%E7%94%B1%E5%BA%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%B6%88%E9%99%A4%E5%B9%B3%E7%A7%BB%E8%87%AA%E7%94%B1%E5%BA%A6" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>只比较局部变换时，整个输出网格可以任意平移，目标函数的值却不变。为消除这个 null space，至少要固定一个完整的三维顶点。</p>
+<p>论文采用 hard constraint：将已知顶点从未知向量中移除，并把相应项移到右侧。例如：</p>
+<p>$$
+2\tilde x_3-\tilde x_{10}=5.
+$$</p>
+<p>若固定 \(\tilde x_{10}=1\)，方程就变为 \(2\tilde x_3=6\)。固定值也可以是脚底位置、门把手位置或 motion capture 提供的目标位置，不一定要等于 reference pose 中的坐标。</p>
+
+
+<h3 class="relative group">为什么分解一次就够了 
+    <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E8%A7%A3%E4%B8%80%E6%AC%A1%E5%B0%B1%E5%A4%9F%E4%BA%86" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E8%A7%A3%E4%B8%80%E6%AC%A1%E5%B0%B1%E5%A4%9F%E4%BA%86" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>令</p>
+<p>$$
+H=A^TA,
+\qquad b=A^Tc,
+\qquad H\tilde x=b.
+$$</p>
+<p>当目标参考网格、correspondence 和约束的顶点集合不变时，\(H\) 始终不变。新的源姿势只会改变 \(c\)，继而改变 \(b\)。因此可以预先对 \(H\) 做一次 sparse LU factorization：</p>
+<p>$$
+H=LU.
+$$</p>
+<p>之后每个新姿势只需要前向代入和回代（back substitution）。若约束的顶点编号不变而目标位置逐帧更新，也只会改变右侧；只有启用或关闭一组约束时，矩阵结构才会改变。</p>
+
+
+<h2 class="relative group">如何建立 correspondence 
+    <div id="%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B-correspondence" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B-correspondence" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>前面的推导都假设 correspondence map \(M\) 已经存在。实际中，源和目标的网格密度与拓扑可能完全不同，不能按顶点编号直接配对。论文的办法是先将源参考网格非刚性配准到目标参考网格，再在两个已经贴近的表面之间寻找三角形对应。</p>
+<p>用户先提供少量语义明确的 vertex markers，例如鼻尖对鼻尖、膝盖对膝盖。设源参考顶点为 \(u_i\)，配准后的临时顶点为 \(\hat u_i\)，marker 在目标表面的位置为 \(m_k\)，则 marker 是 hard constraint：</p>
+<p>$$
+\hat u_{a_k}=m_k.
+$$</p>
+<p>配准阶段为每个源三角形引入局部变换 \(R_i\)。这里改用 \(R_i\)，是为了避免和真正执行 deformation transfer 时的 \(S_s\) 混淆。</p>
+
+
+<h3 class="relative group">Registration energy 
+    <div id="registration-energy" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#registration-energy" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>第一项要求相邻三角形的局部变换尽量接近：</p>
+<p>$$
+E_S=\sum_i\sum_{j\in adj(i)}\left|R_i-R_j\right|_F^2.
+\tag{11}
+$$</p>
+<p>它平滑的是 deformation field，而不是网格表面本身。如果所有三角形经历同一个 rigid transformation，\(E_S\) 为零。</p>
+<p>第二项让局部变换在没有其他证据时靠近 identity：</p>
+<p>$$
+E_I=\sum_i\left|R_i-I\right|_F^2.
+\tag{12}
+$$</p>
+<p>第三项是 closest valid point term：</p>
+<p>$$
+E_C=\sum_i\left|\hat u_i-c_i\right|^2.
+\tag{13}
+$$</p>
+<p>\(c_i\) 是目标表面上距离 \(\hat u_i\) 最近的有效点，可以落在三角形内部。为减少嘴唇上下表面或模型正反面之间的错误匹配，源顶点法线与候选目标三角形法线的夹角必须小于 \(90^\circ\)。</p>
+<p>总能量为：</p>
+<p>$$
+\begin{aligned}
+\min\quad&amp;E=w_SE_S+w_IE_I+w_CE_C\
+\text{subject to}\quad&amp;\hat u_{a_k}=m_k.
+\end{aligned}
+\tag{14}
+$$</p>
+<p>求解分成两个阶段：</p>
+<ol>
+<li><strong>粗配准。</strong> 设 \(w_S=1.0\)、\(w_I=0.001\)、\(w_C=0\)，先依靠 markers、smoothness 和 identity term 将源网格拉到目标网格附近。</li>
+<li><strong>Non-rigid ICP。</strong> 反复更新 closest valid points 并重新求解，将 \(w_C\) 分四步从 1 提高到 5000，让两个表面逐渐贴合。</li>
+</ol>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/figure-4-correspondence_hu10229207702352414458.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-4-correspondence_hu4230034824155489274.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-4-correspondence_hu9735562621922886158.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-4-correspondence_hu4992913369151864117.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/figure-4-correspondence_hu4230034824155489274.webp"
+        alt="marker 引导的非刚性配准"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 4。A：目标骆驼；B：源模型马；C：由 markers、smoothness 和 identity term 得到的粗配准；D：加入 closest valid point term 后的结果。</em></p>
+<p>配准完成后，算法比较临时源三角形与目标三角形的中心点。只有中心距离低于阈值且法线夹角小于 \(90^\circ\) 的三角形才视为兼容。最近邻搜索从两个方向各做一次：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">for each registered source triangle s:
+</span></span><span class="line"><span class="cl">    t = closest compatible target triangle
+</span></span><span class="line"><span class="cl">    M.add((s, t))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">for each target triangle t:
+</span></span><span class="line"><span class="cl">    s = closest compatible registered source triangle
+</span></span><span class="line"><span class="cl">    M.add((s, t))
+</span></span></code></pre></div><p>双向搜索自然会产生一对多和多对一关系，因此能够处理不同分辨率的网格。某些目标区域也可以没有源 correspondence，例如人脸扫描只包含正脸，而数字角色还有后脑与颈部。对于这些区域，可以额外加入接近 identity transformation 的 regularization。</p>
+<p>这套自动 correspondence 并不等于自动理解模型语义。最近点只有在粗略语义对齐后才可靠；如果 marker 太少，或两个角色的结构差异太大，registration 仍可能得到错误结果。</p>
+
+
+<h2 class="relative group">实现框架 
+    <div id="%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>将预处理和逐姿势计算分开，整体流程如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">// 一次性：建立 correspondence
+</span></span><span class="line"><span class="cl">M = build_correspondence(source_ref, target_ref, marker_pairs)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 一次性：构造并分解 target 的线性系统
+</span></span><span class="line"><span class="cl">for each target face t:
+</span></span><span class="line"><span class="cl">    B_inv[t] = inverse(local_basis(target_ref, t))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">A = assemble_sparse_matrix(target_ref, B_inv, M, constraints)
+</span></span><span class="line"><span class="cl">H = transpose(A) * A
+</span></span><span class="line"><span class="cl">factor = sparse_LU(H)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 每个 source pose
+</span></span><span class="line"><span class="cl">for each source face s:
+</span></span><span class="line"><span class="cl">    B_ref = local_basis(source_ref, s)
+</span></span><span class="line"><span class="cl">    B_def = local_basis(source_pose, s)
+</span></span><span class="line"><span class="cl">    S[s] = B_def * inverse(B_ref)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">c = stack_source_transforms(S, M, constraints)
+</span></span><span class="line"><span class="cl">b = transpose(A) * c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">x = solve_with_LU(factor, b.x)
+</span></span><span class="line"><span class="cl">y = solve_with_LU(factor, b.y)
+</span></span><span class="line"><span class="cl">z = solve_with_LU(factor, b.z)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 只写回真实顶点，triangle auxiliary vertices 不属于输出网格
+</span></span><span class="line"><span class="cl">target_pose.vertices = combine(x[0:n], y[0:n], z[0:n])
+</span></span><span class="line"><span class="cl">target_pose.faces = target_ref.faces
+</span></span></code></pre></div><p>实现时还有几个容易踩坑的地方：</p>
+<ul>
+<li>退化或接近退化的三角形会使 \(B\) 不可逆，需要预先检测面积；</li>
+<li>源参考网格与源姿势必须拥有相同的拓扑和顶点编号；</li>
+<li>每个目标三角形都有自己独立的 auxiliary vertex，不能在相邻三角形之间共享；</li>
+<li>至少固定一个三维顶点，否则系统存在整体平移的 null space；</li>
+<li>没有源 correspondence 的区域需要 identity regularization；</li>
+<li>实际的 sparse LU 通常还包含 permutation，以改善数值稳定性并减少 fill-in。</li>
+</ul>
+
+
+<h2 class="relative group">实验结果 
+    <div id="%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>论文展示了四组主要实验：horse 到 camel、cat 到 lion、真人 face scan 到数字角色，以及 horse 到 flamingo。输入形变既包括关节驱动的姿势，也包括明显的非刚性塌陷。</p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/figure-6-collapse_hu16373973934902723084.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-6-collapse_hu16678732899070541657.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-6-collapse_hu8053740867437555247.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-6-collapse_hu14929789321897124210.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/figure-6-collapse_hu16678732899070541657.webp"
+        alt="马的非刚性塌陷被迁移到骆驼"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 6：源模型马像布料一样塌陷，目标骆驼也获得了相应的局部折叠与压缩。这说明方法并不依赖 skeleton。</em></p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/figure-7-face_hu5998696016749071711.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-7-face_hu14011524583277707413.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-7-face_hu8757092006208423196.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-7-face_hu9117294547790229601.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/figure-7-face_hu14011524583277707413.webp"
+        alt="真人面部扫描表情被迁移到数字角色"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 7：将真人 face scan 的表情迁移到数字角色。源网格只覆盖面部正面，目标网格的其余区域通过 regularization 保持稳定。</em></p>
+<p>
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /tech/deformation-transfer-for-triangle-meshes/figure-8-flamingo_hu11519517131878156982.webp 330w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-8-flamingo_hu521047559451442682.webp 660w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-8-flamingo_hu13105190591342528108.webp 1024w,
+        /tech/deformation-transfer-for-triangle-meshes/figure-8-flamingo_hu2060997649204672031.webp 2x"
+        src="/tech/deformation-transfer-for-triangle-meshes/figure-8-flamingo_hu521047559451442682.webp"
+        alt="马的姿势被迁移到火烈鸟"
+      />
+      
+      
+    </figure>
+  
+
+</p>
+<p><em>Figure 8：horse 到 flamingo 的实验刻意挑战了 correspondence 的语义边界。</em></p>
+<p>论文在 3.0 GHz Pentium IV 上报告了以下耗时。LU factorization 只做一次，之后每个新姿势只需 back substitution：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">组合</th>
+          <th style="text-align: right">Marker 数</th>
+          <th style="text-align: right">LU factorization</th>
+          <th style="text-align: right">每姿势 back substitution</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Horse → Camel</td>
+          <td style="text-align: right">65</td>
+          <td style="text-align: right">1.559 s</td>
+          <td style="text-align: right">0.293 s</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Cat → Lion</td>
+          <td style="text-align: right">77</td>
+          <td style="text-align: right">0.299 s</td>
+          <td style="text-align: right">0.057 s</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Human face → Digital head</td>
+          <td style="text-align: right">42</td>
+          <td style="text-align: right">1.252 s</td>
+          <td style="text-align: right">0.298 s</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Horse → Flamingo</td>
+          <td style="text-align: right">73</td>
+          <td style="text-align: right">1.495 s</td>
+          <td style="text-align: right">0.406 s</td>
+      </tr>
+  </tbody>
+</table>
+<p>作者还测试了约 40 万个三角形的目标网格：LU factorization 约需 95 秒，每个姿势的 back substitution 约需 6.5 秒。此时主要瓶颈已经变成内存和磁盘交换，论文建议对超大网格考虑 multigrid 一类的求解器。</p>
+<p>连续动画仍然是逐帧求解。为了维持脚部位置，作者记录源模型脚部顶点的轨迹，按目标模型的尺寸缩放后作为 position constraints。由于输入动画、约束和线性求解都随时间连续，输出通常也会连续；不过目标函数中没有 temporal term，因此方法本身并不严格保证无抖动。</p>
+
+
+<h2 class="relative group">局限 
+    <div id="%E5%B1%80%E9%99%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%B1%80%E9%99%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>这套方法很通用，但它的边界也很清楚。</p>
+<ul>
+<li><strong>依赖合理的语义对应。</strong> 猫与狮子、马与骆驼容易建立 correspondence；马与火烈鸟之间就有明显歧义。</li>
+<li><strong>只迁移几何结果。</strong> Skeleton、skin weights、blendshape controls、muscle parameters 和 animation controllers 都不会被迁移。</li>
+<li><strong>缺少细粒度的编辑控制。</strong> 主要控制手段是 correspondence 和 position constraints，不能直接表达“这个关节只传递 50%”。</li>
+<li><strong>没有显式的时间模型。</strong> 动画按帧独立求解，平滑性来自连续输入而不是 temporal optimization。</li>
+<li><strong>直接求解器受内存限制。</strong> 大规模系统中的 LU fill-in 会迅速增加存储和计算成本。</li>
+</ul>
+<p>论文的实验说明，同一个局部变换框架能够处理不同拓扑、不同变形来源和多类角色，并且在当时的硬件上已经足够高效。不过论文主要依赖视觉案例，没有提供大规模定量误差、用户研究或解剖合理性指标。它证明了这个框架具有很强的表达力，但不意味着任意两个模型之间都能自动得到正确结果。</p>
+
+
+<h2 class="relative group">总结 
+    <div id="%E6%80%BB%E7%BB%93" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>Deformation Transfer for Triangle Meshes 的核心可以归纳为三件事：</p>
+<ol>
+<li>用每个源三角形的 local affine transformation 描述“局部怎样变”；</li>
+<li>用 correspondence map 将这些变换分配给目标表面；</li>
+<li>把目标局部变换写成共享顶点的线性函数，通过 sparse least squares 求出一张连续网格。</li>
+</ol>
+<p>最值得记住的不是某个单独公式，而是这种表示方式：局部形变与全局位置被有意拆开。局部用 transformation 表达，连接关系由共享顶点维护，彼此冲突的要求则交给 least-squares optimization 协调。正是这个拆分，让不同拓扑之间的 deformation transfer 变成了一个可以高效求解的线性问题。</p>
+
+
+<h2 class="relative group">参考资料 
+    <div id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>Robert W. Sumner and Jovan Popović. <a href="https://dl.acm.org/doi/epdf/10.1145/1015706.1015736"   target="_blank">
+    Deformation Transfer for Triangle Meshes</a>. ACM Transactions on Graphics 23(3), 399–405, 2004.</li>
+<li><a href="https://people.csail.mit.edu/sumner/research/deftransfer/"   target="_blank">
+    作者项目页：论文、视频与实验数据</a></li>
+</ul>
+<p>文中标注 Figure 编号的图片裁自原论文，仅用于学习与说明。</p>
+
+        </div>
+        
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/feature_hu3792213073171399374.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/">Github 邮箱更改之后</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-29 17:20:56 &#43;0800 &#43;0800">2024-06-29</time><span class="px-2 text-primary-500">&middot;</span><span>1348 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Github 邮箱更改之后/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/feature_hu1512955500307278229.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/%E5%85%B3%E4%BA%8E-contribution-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/">关于 Contribution 的那些事</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-25 23:59:56 &#43;0800 &#43;0800">2024-06-25</time><span class="px-2 text-primary-500">&middot;</span><span>4023 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">9 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/关于 Contribution 的那些事/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E5%BC%80%E6%BA%90/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    开源
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/feature_hu8918995235412570169.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/tech/github-action-&#43;-%E5%9F%BA%E4%BA%8E-github-page-blog-%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/">Github Action + 基于 Github Page Blog 自动发布</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-06-15 16:04:46 &#43;0800 &#43;0800">2024-06-15</time><span class="px-2 text-primary-500">&middot;</span><span>2114 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  
+  
+    
+    
+      
+      
+        
+        
+      
+      
+    
+  
+  <span id="views_tech/Github Action &#43; 基于 Github Page Blog 自动发布/index.md" class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span>
+  <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+<path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg>
+  </span>
+
+</span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/%E6%8A%80%E6%9C%AF/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    技术
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/github-action/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Github Action
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+  
+
+  <a href="/weekly/2026/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/sea_hu10102662882192776634.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/weekly/2026/">2026 年周记</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2026-01-01 00:00:00 &#43;0000 UTC">2026-01-01</time><span class="px-2 text-primary-500">&middot;</span><span>263 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          2026 年的生活、记录与思考。
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_tech\/Deformation Transfer for Triangle Meshes 论文精读\/index.md"
+        var oid_likes = "likes_tech\/Deformation Transfer for Triangle Meshes 论文精读\/index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/tech/github-%E9%82%AE%E7%AE%B1%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8E/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Github 邮箱更改之后</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-06-29 17:20:56 &#43;0800 &#43;0800">2024-06-29</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2026
+      White Liu
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+  <a rel="me" href="https://masto.ai/@blowfish"></a>
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://lcenarthas.github.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

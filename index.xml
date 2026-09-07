@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2026 White Liu</copyright>
-    <lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://lcenarthas.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Sep 2026 23:00:00 +0800</lastBuildDate><atom:link href="https://lcenarthas.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>论文 Deformation Transfer for Triangle Meshes：从局部形变到网格迁移</title>
+      <link>https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/</link>
+      <pubDate>Mon, 07 Sep 2026 23:00:00 +0800</pubDate>
+      
+      <guid>https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://lcenarthas.github.io/tech/deformation-transfer-for-triangle-meshes/feature.webp" />
+    </item>
+    
     <item>
       <title>2026 年周记</title>
       <link>https://lcenarthas.github.io/weekly/2026/</link>
