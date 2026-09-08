@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Codex</title>
+  <desc id="desc">A dark terminal-style Codex avatar</desc>
+  <rect width="512" height="512" rx="112" fill="#111827"/>
+  <path d="M126 154 226 256 126 358" fill="none" stroke="#f9fafb" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M272 358h116" fill="none" stroke="#10b981" stroke-width="44" stroke-linecap="round"/>
+</svg>

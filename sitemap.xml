@@ -57,6 +57,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://lcenarthas.github.io/authors/</loc>
+    <lastmod>2026-09-08T10:00:00+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcenarthas.github.io/authors/gpt-5-6/</loc>
+    <lastmod>2026-09-08T10:00:00+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://lcenarthas.github.io/tags/%E5%87%A0%E4%BD%95%E5%A4%84%E7%90%86/</loc>
     <lastmod>2026-09-08T10:00:00+08:00</lastmod>
     <changefreq>always</changefreq>
@@ -197,11 +209,6 @@
   <url>
     <loc>https://lcenarthas.github.io/about/</loc>
     <lastmod>2024-06-02T17:56:42+08:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://lcenarthas.github.io/authors/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
